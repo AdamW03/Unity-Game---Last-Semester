@@ -883,7 +883,7 @@ GameObject:
   - component: {fileID: 1018762136}
   - component: {fileID: 1018762135}
   m_Layer: 5
-  m_Name: LeftItem
+  m_Name: PreviousItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1626,7 +1626,7 @@ GameObject:
   - component: {fileID: 1602547879}
   - component: {fileID: 1602547878}
   m_Layer: 5
-  m_Name: RightItem
+  m_Name: NextItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
