@@ -263,6 +263,15 @@ public class CarouselInventory : MonoBehaviour
         }
     }
 
+    // przekarz aktualnei wybrany przedmiot w ekwipunku
+    public InventoryItem GetSelectedItem()
+    {
+        if (currentItemIndex >= 0 && currentItemIndex < items.Count)
+        {
+            return items[currentItemIndex];
+        }
+        return null;
+    }
     // Opcjonalna metoda UseCurrentItem (dodaæ logikê u¿ycia)
     // public void UseCurrentItem() { /* ... */ }
 }
