@@ -9,6 +9,8 @@ public class InteractionRaycast : MonoBehaviour
 
     [Header("UI Settings")]
     [SerializeField] private TextMeshProUGUI interactionText; // Tekst podpowiedzi (TMP)
+    [SerializeField] private TextMeshProUGUI eventText; // Tekst podpowiedzi (TMP)
+
 
     private Interactable currentInteractable; // Aktualnie namierzony obiekt Interactable
 

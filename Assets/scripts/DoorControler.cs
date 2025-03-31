@@ -42,10 +42,36 @@ public class DoorController : MonoBehaviour
 
     private AudioSource audioSource;
 
+    [Header("Ustawienia Tekstu Interakcji")]
+    [Tooltip("Tekst wyœwietlany, gdy drzwi s¹ zamkniête i mo¿na je otworzyæ.")]
+    public string promptWhenClosed = "[F] Otwórz";
+    [Tooltip("Tekst wyœwietlany, gdy drzwi s¹ otwarte i mo¿na je zamkn¹æ.")]
+    public string promptWhenOpen = "[F] Zamknij";
+    [Tooltip("Tekst wyœwietlany tymczasowo PO interakcji.")]
+    public string promptAfterInteraction = "U¿yto...";
+    [Tooltip("Czas (w sekundach), przez jaki wyœwietlany jest tymczasowy tekst.")]
+    public float promptDisplayDuration = 0.2f;
+
+    // Prywatne pole do przechowywania referencji do Interactable (znajdowane automatycznie)
+    private Interactable doorInteractableTrigger;
+    // Prywatna zmienna do œledzenia aktywnej Coroutine zmiany tekstu
+    private Coroutine activePromptCoroutine = null;
+
     void Awake()
     {
         // Pobierz referencjê do AudioSource przy starcie
         audioSource = GetComponent<AudioSource>();
+
+        // Jeœli nie przypisano w Inspektorze, spróbuj znaleŸæ automatycznie
+        if (doorInteractableTrigger == null)
+        {
+            doorInteractableTrigger = GetComponentInChildren<Interactable>();
+        }
+        if (doorInteractableTrigger == null)
+        {
+            Debug.LogError($"Nie znaleziono komponentu 'Interactable' na obiekcie {gameObject.name} ani na jego dzieciach!", this);
+        }
+        UpdateInteractionPrompt(isOpen ? promptWhenOpen : promptWhenClosed);
 
         // Upewnij siê, ¿e Animator jest przypisany, jeœli nie, spróbuj go znaleŸæ na tym samym obiekcie
         if (doorAnimator == null)
@@ -124,6 +150,7 @@ public class DoorController : MonoBehaviour
             if (selectedItem == null || selectedItem != requiredItemData) // Porównujemy referencje do ScriptableObject
             {
                 Debug.Log($"Próba otwarcia drzwi '{gameObject.name}', ale brakuje wymaganego przedmiotu: {requiredItemData?.itemName ?? "Nieokreœlony"}");
+                
                 PlaySound(lockedSound);
                 // Opcjonalnie: Wyœwietl graczowi wiadomoœæ (np. u¿ywaj¹c systemu UI)
                 if (!string.IsNullOrEmpty(lockedMessage))
@@ -145,6 +172,7 @@ public class DoorController : MonoBehaviour
         }
 
         // 2. Zmieñ stan drzwi i uruchom animacjê/dŸwiêk
+        ShowTemporaryInteractionPrompt(promptAfterInteraction, !isOpen ? promptWhenOpen : promptWhenClosed);
         if (isOpen)
         {
             Close();
@@ -175,6 +203,56 @@ public class DoorController : MonoBehaviour
             PlaySound(closeSound);
             Debug.Log($"Drzwi '{gameObject.name}' zamkniête.");
         }
+    }
+
+    private void UpdateInteractionPrompt(string newPrompt)
+    {
+        if (doorInteractableTrigger != null)
+        {
+            doorInteractableTrigger.interactionPrompt = newPrompt;
+        }
+        else
+        {
+            Debug.LogWarning($"Próba ustawienia tekstu interakcji, ale 'doorInteractableTrigger' nie jest ustawiony na {gameObject.name}.", this);
+        }
+    }
+
+    private void ShowTemporaryInteractionPrompt(string temporaryPrompt, string eventualPrompt)
+    {
+        if (doorInteractableTrigger == null) return; // Sprawdzenie bezpieczeñstwa
+
+        // Jeœli poprzednia Coroutine zmiany tekstu jeszcze dzia³a, zatrzymaj j¹
+        if (activePromptCoroutine != null)
+        {
+            StopCoroutine(activePromptCoroutine);
+        }
+
+        // Uruchom now¹ Coroutine i zapisz do niej referencjê
+        activePromptCoroutine = StartCoroutine(TemporaryPromptCoroutine(temporaryPrompt, eventualPrompt, promptDisplayDuration));
+    }
+
+    // Coroutine obs³uguj¹ca tymczasow¹ zmianê tekstu
+    IEnumerator TemporaryPromptCoroutine(string tempText, string finalText, float duration)
+    {
+        // 1. Ustaw tekst tymczasowy
+        UpdateInteractionPrompt(tempText);
+
+        // 2. Poczekaj okreœlony czas
+        yield return new WaitForSeconds(duration);
+
+        // 3. SprawdŸ, czy TA Coroutine nadal powinna ustawiaæ tekst
+        //    (Mo¿liwe, ¿e inna interakcja uruchomi³a now¹ Coroutine w miêdzyczasie)
+        //    Porównujemy referencje - jeœli activePromptCoroutine wskazuje na INN¥
+        //    coroutine lub null, to znaczy, ¿e ta ju¿ nie jest "aktualna".
+        //    Jednak prostsze mo¿e byæ po prostu ustawienie tekstu koñcowego.
+        //    Jeœli inna coroutine zosta³a uruchomiona, to ona ustawi swój tekst tymczasowy,
+        //    a potem swój koñcowy, nadpisuj¹c ten. To zazwyczaj po¿¹dane zachowanie.
+
+        // Ustaw tekst koñcowy (ten, który ma byæ po odczekaniu)
+        UpdateInteractionPrompt(finalText);
+
+        // 4. Zakoñczono, wyczyœæ referencjê
+        activePromptCoroutine = null;
     }
 
     private void PlaySound(AudioClip clip)
