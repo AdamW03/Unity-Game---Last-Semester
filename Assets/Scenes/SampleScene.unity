@@ -1707,7 +1707,7 @@ Light:
   serializedVersion: 11
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 5
   m_Range: 13.1917
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -5407,8 +5407,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 1696795258}
   playerSpeed: 5
-  playerAcceleration: 2
-  jumpForce: 6
+  playerAcceleration: 5
+  jumpForce: 4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -5513,7 +5513,6 @@ Transform:
   - {fileID: 1746710328}
   - {fileID: 840267635}
   - {fileID: 33909419}
-  - {fileID: 1846396525}
   - {fileID: 321270394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5932,6 +5931,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 193488893}
+  - {fileID: 1846396525}
   m_Father: {fileID: 1559389697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1696795259
@@ -6265,12 +6265,12 @@ Transform:
   m_GameObject: {fileID: 1846396524}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.279, y: 0.943, z: 0.537}
+  m_LocalPosition: {x: 0.27900028, y: 0.943, z: 0.537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 318797496}
-  m_Father: {fileID: 1559389697}
+  m_Father: {fileID: 1696795258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1870675732
 GameObject:

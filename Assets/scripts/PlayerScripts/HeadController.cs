@@ -22,7 +22,7 @@ public class HeadController : MonoBehaviour
 
         rotation_x_axis = Mathf.Clamp(rotation_x_axis, -90.0f, 90.0f);
 
-        Hand.localRotation = Quaternion.Euler(rotation_x_axis, rotation_y_axis, 0);
+        Hand.localRotation = Quaternion.Euler(-rotation_x_axis, 0, 0);
 
         transform.localRotation = Quaternion.Lerp(transform.localRotation,
             Quaternion.Euler(0, rotation_y_axis, 0), cameraAcceleration * Time.deltaTime);

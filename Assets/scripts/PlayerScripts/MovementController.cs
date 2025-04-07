@@ -5,7 +5,7 @@ public class MovementController : MonoBehaviour
     public Transform head;
     public float playerSpeed = 5.0f;
     public float playerAcceleration = 2.0f;
-    public float jumpForce = 6.0f;
+    public float jumpForce = 60.0f;
     public LayerMask groundLayer;
 
     private Rigidbody rb;
