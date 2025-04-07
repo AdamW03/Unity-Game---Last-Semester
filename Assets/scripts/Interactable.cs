@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Events; // Potrzebne do u¿ywania UnityEvent
+using UnityEngine.Events; 
 
 public class Interactable : MonoBehaviour
 {
@@ -10,11 +10,14 @@ public class Interactable : MonoBehaviour
     [Tooltip("Akcje do wykonania po naciœniêciu klawisza interakcji.")]
     public UnityEvent onInteract;
 
-    // --- NOWE POLE ---
+    
     [Header("Dane Przedmiotu (jeœli podnoszony)")]
     [Tooltip("Dane przedmiotu do dodania do ekwipunku (pozostaw puste, jeœli nie jest podnoszony).")]
     public InventoryItem itemData;
-    // ---------------
+
+    [Header("Dane Notatki (jeœli to notatka)")]
+    [Tooltip("Dane notatki do dodania do notatnika (pozostaw puste, jeœli to nie notatka).")]
+    public NoteData noteData;
 
     public virtual void Interact()
     {
@@ -37,6 +40,21 @@ public class Interactable : MonoBehaviour
             Debug.LogWarning($"Próbowano podnieœæ {gameObject.name}, ale nie ma przypisanych danych przedmiotu (Item Data)!");
             // Opcjonalnie zniszcz mimo wszystko lub zostaw
             // Destroy(gameObject);
+        }
+    }
+
+    public void PickupNoteAndDestroy()
+    {
+        if (noteData != null)
+        {
+            CarouselInventory.Instance?.AddItem(itemData);
+            NotebookManager.Instance?.AddNote(noteData); 
+            Destroy(gameObject); 
+        }
+        else
+        {
+            Debug.LogWarning($"Próbowano podnieœæ {gameObject.name} jako notatkê, ale nie ma przypisanych danych (Note Data)!");
+            // Destroy(gameObject); 
         }
     }
 }
