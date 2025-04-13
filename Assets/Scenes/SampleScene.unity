@@ -2136,7 +2136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &429706753
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2200,12 +2200,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   head: {fileID: 1208186180}
-  playerSpeed: 8
-  playerAcceleration: 5
+  playerSpeed: 5
+  playerAcceleration: 8
   jumpForce: 4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  sprintSpeed: 8
+  crouchSpeed: 3
+  sprintKey: 304
+  crouchKey: 306
+  crouchHeightMultiplier: 0.5
 --- !u!4 &429706756
 Transform:
   m_ObjectHideFlags: 0
@@ -4517,7 +4522,7 @@ MonoBehaviour:
   _camera: {fileID: 1632590786}
   hand: {fileID: 53558180}
   cameraSensitivity: 250
-  cameraAcceleration: 14
+  cameraAcceleration: 50
 --- !u!1 &1285031839
 GameObject:
   m_ObjectHideFlags: 0
@@ -5615,6 +5620,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  sprintSpeed: 8
+  crouchSpeed: 2
+  sprintKey: 304
+  crouchKey: 306
+  crouchHeightMultiplier: 0.5
 --- !u!114 &1559389692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6092,7 +6102,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 6e7963dd2afb69c4697bc0b8c91b5237, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
