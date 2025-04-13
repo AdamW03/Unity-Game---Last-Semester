@@ -276,7 +276,7 @@ Transform:
   m_GameObject: {fileID: 16850089}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.1, y: 0.6, z: 0.32}
+  m_LocalPosition: {x: -9.16, y: 0.6, z: 0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -346,7 +346,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1699,7 +1699,7 @@ Transform:
   m_GameObject: {fileID: 342697841}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2129,13 +2129,14 @@ GameObject:
   - component: {fileID: 429706755}
   - component: {fileID: 429706754}
   - component: {fileID: 429706753}
+  - component: {fileID: 429706757}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &429706753
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2214,7 +2215,7 @@ Transform:
   m_GameObject: {fileID: 429706752}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.39, y: 2.13, z: 0}
+  m_LocalPosition: {x: -4.8599997, y: -0.141, z: -0.94000006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2222,6 +2223,22 @@ Transform:
   - {fileID: 53558180}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &429706757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429706752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532f5e18f3b5e4e4b8cc06a31ba70c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionDistance: 2
+  playerCamera: {fileID: 1632590789}
+  interactionText: {fileID: 1535313933}
+  eventText: {fileID: 0}
 --- !u!1 &430890195
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,7 +2301,7 @@ Transform:
   m_GameObject: {fileID: 433019626}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.17, y: 0.61, z: 0.21}
+  m_LocalPosition: {x: -4.29, y: 0.61, z: 3.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2681,7 +2698,7 @@ Transform:
   m_GameObject: {fileID: 540974778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.097, y: 0, z: -0.684}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 0.1, y: 3, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3672,7 +3689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceThreshold: 0.15
-  isGrounded: 0
+  isGrounded: 1
 --- !u!4 &840267635
 Transform:
   m_ObjectHideFlags: 0
@@ -4499,8 +4516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 1632590786}
   hand: {fileID: 53558180}
-  cameraSensitivity: 200
-  cameraAcceleration: 8
+  cameraSensitivity: 250
+  cameraAcceleration: 14
 --- !u!1 &1285031839
 GameObject:
   m_ObjectHideFlags: 0
@@ -4957,7 +4974,7 @@ Transform:
   m_GameObject: {fileID: 1432440095}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.1, y: 0, z: 1.81}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6}
   m_LocalScale: {x: 0.1, y: 3, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5691,7 +5708,7 @@ Transform:
   m_GameObject: {fileID: 1559389690}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.71, y: -0.0000009536743, z: -1.16}
+  m_LocalPosition: {x: -6.41, y: -0.0000009536743, z: -1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
