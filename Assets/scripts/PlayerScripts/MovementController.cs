@@ -5,7 +5,7 @@ public class MovementController : MonoBehaviour
     public Transform head;
     public float playerSpeed = 5.0f;
     public float playerAcceleration = 2.0f;
-    public float jumpForce = 60.0f;
+    public float jumpForce = 4.0f;
     public LayerMask groundLayer;
 
     private Rigidbody rb;
@@ -19,7 +19,7 @@ public class MovementController : MonoBehaviour
     private void Update()
     {
         direction = Input.GetAxisRaw("Horizontal") * head.right + Input.GetAxisRaw("Vertical") * head.forward;
-        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, direction.normalized * playerAcceleration
+        rb.linearVelocity = Vector3.Lerp(rb.linearVelocity, direction.normalized * playerSpeed
             + rb.linearVelocity.y * Vector3.up, playerAcceleration * Time.deltaTime);
 
         if(Input.GetButtonDown("Jump") && isTouchingGround()) {
