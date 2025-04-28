@@ -452,7 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 937118251}
   sightRange: 20
-  fieldOfViewAngle: 145
+  fieldOfViewAngle: 120
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
@@ -462,7 +462,12 @@ MonoBehaviour:
   patrolSpeed: 3
   walkPointRange: 10
   chaseSpeed: 6
+  searchSpeed: 4
   timeToLosePlayer: 5
+  lookAroundWhileSearching: 1
+  searchRotationSpeed: 120
+  lookAngleSide: 180
+  lookPauseDuration: 0.75
 --- !u!1 &115702801
 GameObject:
   m_ObjectHideFlags: 0
