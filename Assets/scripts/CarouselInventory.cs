@@ -274,4 +274,69 @@ public class CarouselInventory : MonoBehaviour
     }
     // Opcjonalna metoda UseCurrentItem (dodaæ logikê u¿ycia)
     // public void UseCurrentItem() { /* ... */ }
+    public bool HasItem(InventoryItem itemData)
+    {
+        if (itemData == null) return false;
+        return items.Contains(itemData); // Lista generyczna ma metodê Contains!
+    }
+
+    public bool RemoveItem(InventoryItem itemToRemove)
+    {
+        if (itemToRemove == null || items.Count == 0)
+        {
+            return false;
+        }
+
+        int indexToRemove = items.IndexOf(itemToRemove); // ZnajdŸ indeks przedmiotu
+
+        if (indexToRemove != -1) // Znaleziono przedmiot
+        {
+            Debug.Log($"Usuwanie z ekwipunku: {itemToRemove.itemName}");
+            bool wasCurrentItem = (indexToRemove == currentItemIndex);
+
+            items.RemoveAt(indexToRemove);
+
+            // Dostosuj indeks, jeœli usuniêto aktualny lub jeœli indeks sta³ siê nieprawid³owy
+            if (items.Count == 0)
+            {
+                currentItemIndex = -1; // Ekwipunek sta³ siê pusty
+            }
+            else
+            {
+                // Jeœli usunêliœmy przedmiot PRZED aktualnym lub aktualny, musimy potencjalnie cofn¹æ indeks
+                if (indexToRemove < currentItemIndex)
+                {
+                    currentItemIndex--; // Przesuñ indeks w lewo
+                }
+                // Jeœli usunêliœmy ostatni element (a by³ on aktualny)
+                else if (wasCurrentItem && currentItemIndex >= items.Count)
+                {
+                    // Nowy aktualny to ostatni z pozosta³ych LUB pierwszy jeœli by³ jedyny
+                    currentItemIndex = items.Count > 0 ? items.Count - 1 : 0;
+                }
+                // Upewnij siê, ¿e indeks jest zawsze poprawny po usuniêciu
+                if (currentItemIndex >= items.Count && items.Count > 0)
+                {
+                    currentItemIndex = 0; // W razie problemu, ustaw na pierwszy
+                }
+                else if (items.Count == 0) // Jeœli sta³ siê pusty
+                {
+                    currentItemIndex = -1;
+                }
+            }
+
+            // Jeœli ekwipunek jest otwarty, odœwie¿ widok
+            if (isInventoryOpen)
+            {
+                UpdateUI();
+            }
+            return true; // Usuniêto pomyœlnie
+        }
+        else
+        {
+            Debug.LogWarning($"Próbowano usun¹æ '{itemToRemove.itemName}', ale nie znaleziono go w ekwipunku.");
+            return false; // Nie znaleziono przedmiotu
+        }
+    }
 }
+
