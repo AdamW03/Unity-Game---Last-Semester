@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f829487065a12944592bea839b8d7684, type: 3}
   m_Name: emptyHandItem
   m_EditorClassIdentifier: 
-  itemName: New Item
+  itemName: "pusta r\u0119ka"
   icon: {fileID: 0}
