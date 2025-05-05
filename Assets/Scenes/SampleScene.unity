@@ -1909,7 +1909,7 @@ MonoBehaviour:
   emptyHandItem: {fileID: 11400000, guid: 7d1c71a6a53aed042bae836496721618, type: 2}
   itemVisuals:
   - itemData: {fileID: 11400000, guid: 39d89e81a8f7db448b9766d5347b7fa9, type: 2}
-    itemVisual: {fileID: 0}
+    itemVisual: {fileID: 1588774081}
   - itemData: {fileID: 11400000, guid: 37d4c7dbc802f804993d752d354aef8c, type: 2}
     itemVisual: {fileID: 653913906}
   - itemData: {fileID: 11400000, guid: 15b3c10045fb98340951189f8e5d4382, type: 2}
@@ -7351,7 +7351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7025663
+      value: 1.0971978
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
       propertyPath: m_LocalScale.z
@@ -7710,6 +7710,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7144148374449115630, guid: fdd96676830bfe4499d76194a4baa3ca, type: 3}
   m_PrefabInstance: {fileID: 1576291448}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1588774081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 53ee823ff543aa24d855d8f9f8c2b87b, type: 3}
+  m_PrefabInstance: {fileID: 1532222775}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1588774082 stripped
 Transform:
