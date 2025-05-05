@@ -1,498 +1,754 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections; // Potrzebne dla Coroutine
+using System.Collections;
+using System.Collections.Generic; // Potrzebne dla List<>
+using System.Linq; // Potrzebne dla ToList()
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
+    #region Zmienne Konfiguracyjne (Inspektor)
+
     [Header("Referencje")]
+    [Tooltip("Obiekt gracza, którego AI ma œcigaæ. Powinien mieæ tag 'Player'.")]
     public Transform player;
+    [Tooltip("Lista punktów (Transform), które AI odwiedza podczas patrolowania. Jeœli pusta, AI u¿ywa losowych punktów.")]
+    public List<Transform> patrolWaypoints = new List<Transform>();
 
     [Header("Ustawienia Widzenia")]
+    [Tooltip("Maksymalna odleg³oœæ, z jakiej AI mo¿e zobaczyæ gracza.")]
     public float sightRange = 15f;
+    [Tooltip("Szerokoœæ k¹ta widzenia AI (w stopniach).")]
     public float fieldOfViewAngle = 90f;
-    public LayerMask obstacleMask; // Warstwa dla przeszkód (œciany, meble itp.)
-    public LayerMask playerMask;   // Warstwa TYLKO dla gracza
+    [Tooltip("Warstwa (Layer) zawieraj¹ca przeszkody blokuj¹ce wzrok (œciany, meble itp.).")]
+    public LayerMask obstacleMask;
+    [Tooltip("Warstwa (Layer) przypisana TYLKO do obiektu gracza.")]
+    public LayerMask playerMask;
 
     [Header("Ustawienia Patrolowania")]
+    [Tooltip("Prêdkoœæ poruszania siê AI podczas patrolowania.")]
     public float patrolSpeed = 3f;
-    public float walkPointRange = 10f; // Jak daleko AI szuka kolejnego punktu patrolu
+    [Tooltip("Maksymalna odleg³oœæ od AI, w jakiej szukany jest nastêpny LOSOWY punkt patrolu (u¿ywane, gdy lista Waypoints jest pusta).")]
+    public float randomWalkPointRange = 10f;
+    [Tooltip("Prêdkoœæ obrotu podczas patrolowania (stopnie/sekundê). Agent kontroluje obrót.")]
+    public float patrolAngularSpeed = 120f;
+    [Tooltip("Przyspieszenie podczas patrolowania.")]
+    public float patrolAcceleration = 8f;
+    [Tooltip("Czy AI ma siê zatrzymaæ i rozejrzeæ po dotarciu do punktu patrolu?")]
+    public bool stopAndLookEnabled = true;
+    [Tooltip("Jak d³ugo (w sekundach) AI ma siê rozgl¹daæ po zatrzymaniu.")]
+    public float observationDuration = 3.0f;
+    [Tooltip("Prêdkoœæ obrotu podczas rozgl¹dania siê (stopnie/sekundê).")]
+    public float observationAngularSpeed = 90f;
+    [Tooltip("K¹t sto¿ka (w stopniach), w którym AI szuka LOSOWEGO punktu patrolu po zgubieniu gracza (gdy nie u¿ywa Waypoints). 360 = w pe³ni losowo.")]
+    [Range(10f, 360f)]
+    public float patrolBiasConeAngle = 90f;
 
     [Header("Ustawienia Gonienia")]
-    public float chaseSpeed = 6f;
+    [Tooltip("Prêdkoœæ poruszania siê AI podczas gonienia gracza.")]
+    public float chaseSpeed = 7f;
+    [Tooltip("Przyspieszenie podczas gonienia (wp³ywa na szybkoœæ osi¹gania prêdkoœci).")]
+    public float chaseAcceleration = 50f;
 
     [Header("Ustawienia Szukania")]
-    public float searchSpeed = 4f; // Prêdkoœæ podczas dochodzenia do miejsca szukania
-    public float timeToLosePlayer = 5f; // Czas szukania *po dotarciu* do ostatniej znanej pozycji
-    public bool lookAroundWhileSearching = true; // Czy AI ma siê obracaæ w miejscu szukaj¹c?
-    public float searchRotationSpeed = 120f; // Prêdkoœæ obrotu podczas szukania (stopnie/sek)
-    public float lookAngleSide = 90f; // Jak daleko w bok siê rozejrzy (stopnie)
-    public float lookPauseDuration = 0.75f; // Jak d³ugo pauzuje w ka¿dej pozycji rozgl¹dania
+    [Tooltip("Prêdkoœæ podczas szukania ostatniej znanej pozycji gracza i przeszukiwania obszaru.")]
+    public float searchSpeed = 5f;
+    [Tooltip("Prêdkoœæ obrotu podczas szukania (stopnie/sekundê). Agent kontroluje obrót.")]
+    public float searchAngularSpeed = 360f;
+    [Tooltip("Przyspieszenie podczas szukania.")]
+    public float searchAcceleration = 16f;
+    [Tooltip("Czy AI ma przeszukaæ obszar wokó³ ostatniej znanej pozycji gracza?")]
+    public bool areaSweepEnabled = true;
+    [Tooltip("Promieñ obszaru do przeszukania wokó³ ostatniej znanej pozycji gracza.")]
+    public float sweepRadius = 5.0f;
+    [Tooltip("Ile dodatkowych punktów w obszarze ma sprawdziæ AI.")]
+    public int numberOfSweepPoints = 3;
+
+    #endregion
+
+    #region Zmienne Prywatne
 
     private NavMeshAgent agent;
     private AIState currentState;
-    private Vector3 walkPoint;
-    private bool walkPointSet;
-    private float searchTimer; // Timer odliczaj¹cy czas w stanie Searching
-    private Vector3 lastKnownPlayerPosition; // Ostatnia pozycja, gdzie widziano gracza
-    private Coroutine lookAroundCoroutine; // Referencja do aktywnej korutyny rozgl¹dania
 
-    // Stany, w jakich mo¿e byæ AI
+    // Patrolowanie
+    private Vector3 currentPatrolTargetPosition;
+    private bool patrolTargetSet;
+    private int currentWaypointIndex = -1; // Indeks OSTATNIO WYBRANEGO/OSI¥GNIÊTEGO waypointa
+    private bool useWaypoints = false;
+    private List<int> availableWaypointIndices = new List<int>(); // NOWA ZMIENNA: Indeksy waypointów dostêpnych w bie¿¹cym cyklu
+    private Vector3? nextPatrolDirectionBias = null;
+
+    // Obserwacja
+    private float observationTimer;
+    private Quaternion targetObservationRotation;
+    private float nextObservationTurnTime;
+
+    // Szukanie
+    private Vector3 lastKnownPlayerPosition;
+    private Vector3 searchOriginPosition;
+    private bool isSweepingArea = false;
+    private List<Vector3> sweepPoints = new List<Vector3>();
+    private int currentSweepPointIndex = -1;
+
+    #endregion
+
+    #region Stany AI
+
     private enum AIState
     {
-        Patrolling, // Chodzenie po okolicy
-        Chasing,    // Gonienie gracza
-        Searching   // Szukanie gracza po utracie z oczu
+        Patrolling,
+        Observing,
+        Chasing,
+        Searching
     }
+
+    #endregion
+
+    #region Metody MonoBehaviour (Awake, Update, LateUpdate)
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        // ZnajdŸ gracza po tagu
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
-        {
-            player = playerObject.transform;
-        }
-        else
-        {
-            Debug.LogError("Nie znaleziono obiektu gracza z tagiem 'Player'! AI nie bêdzie dzia³aæ poprawnie.", this);
-            enabled = false; // Wy³¹cz ten komponent AI
-            return;
-        }
+        if (playerObject != null) player = playerObject.transform;
+        else { Debug.LogError($"[{gameObject.name}] Nie znaleziono gracza 'Player'!", this); enabled = false; return; }
 
-        // Ustawienia pocz¹tkowe agenta
-        currentState = AIState.Patrolling;
-        agent.speed = patrolSpeed;
-        agent.stoppingDistance = 1.0f; // Pozwól agentowi zatrzymaæ siê trochê przed celem (wa¿ne dla szukania)
+        if (agent == null) { Debug.LogError($"[{gameObject.name}] Brak NavMeshAgent!", this); enabled = false; return; }
+
+        // Ustalenie trybu patrolowania i inicjalizacja listy dostêpnych waypointów
+        InitializePatrolMode();
+
+        agent.updateRotation = true;
+        agent.stoppingDistance = 1.0f;
+        TransitionToState(AIState.Patrolling);
     }
 
     void Update()
     {
-        // SprawdŸ, czy AI widzi gracza w tej klatce
+        if (player == null)
+        {
+            if (currentState != AIState.Patrolling && currentState != AIState.Observing)
+                TransitionToState(AIState.Patrolling);
+            if (currentState == AIState.Patrolling) HandlePatrolling();
+            else if (currentState == AIState.Observing) HandleObserving();
+            return;
+        }
+
         bool canSeePlayer = CheckLineOfSight();
 
-        // Wykonaj akcje zale¿ne od aktualnego stanu
         switch (currentState)
         {
             case AIState.Patrolling:
                 HandlePatrolling();
-                // Jeœli zobaczysz gracza podczas patrolowania, zacznij goniæ
                 if (canSeePlayer) TransitionToState(AIState.Chasing);
                 break;
-
+            case AIState.Observing:
+                HandleObserving();
+                if (canSeePlayer) TransitionToState(AIState.Chasing);
+                break;
             case AIState.Chasing:
                 HandleChasing(canSeePlayer);
                 break;
-
             case AIState.Searching:
                 HandleSearching(canSeePlayer);
                 break;
         }
     }
 
-    // --- Obs³uga Stanów ---
+    void LateUpdate()
+    {
+        if (currentState == AIState.Chasing && player != null)
+        {
+            if (agent.updateRotation == false)
+            {
+                Vector3 directionToPlayer = player.position - transform.position;
+                directionToPlayer.y = 0;
+                if (directionToPlayer.sqrMagnitude > 0.001f)
+                {
+                    transform.rotation = Quaternion.LookRotation(directionToPlayer);
+                }
+            }
+        }
+    }
 
+    #endregion
+
+    #region Metody Obs³uguj¹ce Stany
+
+    // --- PATROLOWANIE ---
     void HandlePatrolling()
     {
-        // Ustaw prêdkoœæ patrolowania i upewnij siê, ¿e agent siê porusza
-        if (agent.speed != patrolSpeed) agent.speed = patrolSpeed;
-        if (agent.isStopped) agent.isStopped = false;
-
-        // Jeœli nie mamy celu patrolu, znajdŸ nowy
-        if (!walkPointSet) SearchWalkPoint();
-
-        // Jeœli mamy cel, idŸ do niego
-        if (walkPointSet) agent.SetDestination(walkPoint);
-
-        // SprawdŸ, czy dotar³ blisko celu (lub utkn¹³)
-        // !agent.pathPending upewnia siê, ¿e agent ma ju¿ obliczon¹ œcie¿kê (nie jest w trakcie)
-        if (walkPointSet && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+        if (!patrolTargetSet)
         {
-            // Dotar³ - zresetuj flagê, aby w nastêpnej klatce szukaæ nowego celu
-            walkPointSet = false;
-        }
-    }
-
-    void HandleChasing(bool canSeePlayer)
-    {
-        // Ustaw prêdkoœæ gonienia i upewnij siê, ¿e agent siê porusza
-        if (agent.speed != chaseSpeed) agent.speed = chaseSpeed;
-        if (agent.isStopped) agent.isStopped = false;
-
-        if (canSeePlayer)
-        {
-            // Widzimy gracza - aktualizuj cel i ostatni¹ znan¹ pozycjê
-            agent.SetDestination(player.position);
-            lastKnownPlayerPosition = player.position;
-            // Resetuj timer szukania na wszelki wypadek (gdybyœmy wrócili z Searching)
-            searchTimer = 0f;
-        }
-        else
-        {
-            // Straciliœmy gracza z oczu *w tej klatce*!
-            // Natychmiast przejdŸ do szukania w ostatnim znanym miejscu.
-            Debug.Log("AI: Straci³em gracza z oczu, przechodzê do szukania!");
-            TransitionToState(AIState.Searching);
-            // `lastKnownPlayerPosition` ma wartoœæ z poprzedniej klatki, gdy gracz by³ widoczny.
-        }
-    }
-
-    void HandleSearching(bool canSeePlayer)
-    {
-        // Jeœli zobaczysz gracza podczas szukania, natychmiast wróæ do gonienia
-        if (canSeePlayer)
-        {
-            TransitionToState(AIState.Chasing);
-            return; // Zakoñcz dzia³anie w tej klatce
+            FindNextPatrolTarget();
         }
 
-        // Ustaw prêdkoœæ dochodzenia do miejsca szukania
-        if (agent.speed != searchSpeed) agent.speed = searchSpeed;
-
-        // Odliczaj czas szukania *zawsze* gdy jesteœmy w stanie Searching
-        searchTimer += Time.deltaTime;
-        // Debug.Log($"AI: Szukam, czas: {searchTimer:F1}/{timeToLosePlayer}");
-
-        // SprawdŸ, czy czas na szukanie ju¿ min¹³
-        if (searchTimer >= timeToLosePlayer)
+        if (patrolTargetSet && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
         {
-            // Czas min¹³, nie znaleziono gracza - wracaj do patrolowania
-            Debug.Log("AI: Czas na szukanie min¹³, wracam do patrolowania.");
-            TransitionToState(AIState.Patrolling);
-            return; // Zakoñcz dzia³anie w tej klatce
-        }
-
-        // SprawdŸ, czy dotarliœmy do ostatniej znanej pozycji LUB czy ju¿ tam stoimy
-        // Sprawdzamy `hasPath` i `pathPending` aby upewniæ siê, ¿e agent nie jest w trakcie obliczania nowej œcie¿ki
-        // i `remainingDistance` aby sprawdziæ czy jest blisko celu.
-        bool reachedDestination = !agent.pathPending && agent.hasPath && agent.remainingDistance <= agent.stoppingDistance;
-        // Lub jeœli nie mamy œcie¿ki (np. cel jest tu¿ pod nami lub nieosi¹galny, lub ju¿ tam stoimy)
-        bool noPathOrAlreadyThere = !agent.pathPending && !agent.hasPath;
-
-        if (reachedDestination || noPathOrAlreadyThere)
-        {
-            // Dotarliœmy na miejsce lub ju¿ tu byliœmy - zatrzymaj agenta (jeœli siê rusza³)
-            if (!agent.isStopped)
+            if (!agent.hasPath || agent.velocity.sqrMagnitude < 0.1f * 0.1f)
             {
-                agent.velocity = Vector3.zero; // Natychmiast zatrzymaj ruch pêdu
-                agent.isStopped = true; // Zatrzymaj ruch NavMeshAgent
-                                        // Debug.Log("AI: Dotar³em do miejsca szukania, zatrzymujê siê.");
-            }
+                patrolTargetSet = false;
+                // currentWaypointIndex zosta³ ustawiony w FindNextPatrolTarget
 
-            // Rozpocznij rozgl¹danie siê (jeœli w³¹czone i jeszcze nie dzia³a)
-            if (lookAroundWhileSearching && lookAroundCoroutine == null)
-            {
-                // Rozpoczynamy rozgl¹danie, ale timer `searchTimer` nadal p³ynie globalnie
-                lookAroundCoroutine = StartCoroutine(LookAroundRoutine());
-            }
-            // Jeœli rozgl¹danie jest wy³¹czone, AI po prostu postoi w miejscu przez `timeToLosePlayer`
-        }
-        else
-        {
-            // Jeszcze idziemy do celu - upewnij siê, ¿e agent siê porusza
-            if (agent.isStopped)
-            {
-                agent.isStopped = false;
-                // Debug.Log("AI: Wznawiam ruch do miejsca szukania.");
-            }
-            // Upewnij siê, ¿e cel jest nadal ustawiony (na wypadek problemów z NavMesh)
-            if (agent.destination != lastKnownPlayerPosition)
-            {
-                agent.SetDestination(lastKnownPlayerPosition);
-            }
-        }
-    }
-
-
-    // --- Przejœcia Miêdzy Stanami ---
-
-    void TransitionToState(AIState newState)
-    {
-        if (currentState == newState) return; // Ju¿ jesteœmy w tym stanie
-
-        // Czyszczenie przed zmian¹ stanu
-        // Zatrzymaj korutynê rozgl¹dania, jeœli by³a aktywna
-        if (lookAroundCoroutine != null)
-        {
-            StopCoroutine(lookAroundCoroutine);
-            lookAroundCoroutine = null;
-            // Debug.Log("AI: Zatrzymano korutynê rozgl¹dania z powodu zmiany stanu.");
-        }
-        // Domyœlnie agent ma siê ruszaæ po zmianie stanu (chyba ¿e nowy stan go zatrzyma)
-        agent.isStopped = false;
-
-        Debug.Log($"AI zmienia stan z {currentState} na {newState}");
-        currentState = newState;
-
-        // Inicjalizacja nowego stanu
-        switch (newState)
-        {
-            case AIState.Patrolling:
-                agent.speed = patrolSpeed;
-                walkPointSet = false; // Bêdzie szukaæ nowego punktu patrolu
-                break;
-            case AIState.Chasing:
-                agent.speed = chaseSpeed;
-                // `lastKnownPlayerPosition` jest aktualizowane w `HandleChasing`
-                // `searchTimer` jest resetowany w `HandleChasing`
-                Debug.Log("AI: Widzê gracza! Zaczynam poœcig!");
-                break;
-            case AIState.Searching:
-                agent.speed = searchSpeed; // Ustaw prêdkoœæ dochodzenia
-                searchTimer = 0f; // Resetuj timer szukania przy wejœciu w ten stan
-                agent.SetDestination(lastKnownPlayerPosition); // Ustaw cel na ostatni¹ znan¹ pozycjê
-                agent.isStopped = false; // Upewnij siê, ¿e rusza do celu
-                Debug.Log($"AI: Idê sprawdziæ ostatni¹ znan¹ pozycjê: {lastKnownPlayerPosition}");
-                break;
-        }
-    }
-
-    // --- Funkcje Pomocnicze ---
-
-    void SearchWalkPoint()
-    {
-        // ZnajdŸ losowy kierunek
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-        Vector3 randomDirection = new Vector3(randomX, 0, randomZ);
-
-        // Oblicz potencjalny punkt w pewnej odleg³oœci
-        Vector3 potentialPoint = transform.position + randomDirection.normalized * Random.Range(walkPointRange * 0.5f, walkPointRange);
-
-        NavMeshHit hit;
-        // Spróbuj znaleŸæ najbli¿szy punkt na NavMesh w rozs¹dnym promieniu od potencjalnego punktu
-        if (NavMesh.SamplePosition(potentialPoint, out hit, walkPointRange * 0.5f, NavMesh.AllAreas))
-        {
-            walkPoint = hit.position;
-            walkPointSet = true;
-            // Debug.Log($"AI: Nowy punkt patrolu: {walkPoint}");
-        }
-        else
-        {
-            // Jeœli nie znaleziono punktu w losowym kierunku, spróbuj znaleŸæ jakikolwiek blisko AI
-            if (NavMesh.SamplePosition(transform.position, out hit, walkPointRange, NavMesh.AllAreas))
-            {
-                // ZnajdŸ losowy punkt w promieniu od aktualnej pozycji AI na NavMesh
-                Vector3 randomNavPoint = transform.position + Random.insideUnitSphere * walkPointRange;
-                if (NavMesh.SamplePosition(randomNavPoint, out hit, walkPointRange, NavMesh.AllAreas))
+                if (stopAndLookEnabled)
                 {
-                    walkPoint = hit.position;
-                    walkPointSet = true;
-                    // Debug.Log($"AI: Znalaz³em alternatywny punkt patrolu blisko: {walkPoint}");
+                    TransitionToState(AIState.Observing);
                 }
                 else
                 {
-                    walkPointSet = false; // Nadal nie znaleziono
-                                          // Debug.LogWarning("AI: Nie uda³o siê znaleŸæ losowego punktu na NavMesh w pobli¿u.", this);
+                    FindNextPatrolTarget();
+                }
+            }
+        }
+    }
+
+    // --- OBSERWACJA ---
+    void HandleObserving()
+    {
+        observationTimer -= Time.deltaTime;
+        if (observationTimer <= 0f)
+        {
+            TransitionToState(AIState.Patrolling);
+            return;
+        }
+
+        if (Time.time >= nextObservationTurnTime)
+        {
+            float randomAngle = Random.Range(-90f, 90f);
+            targetObservationRotation = transform.rotation * Quaternion.Euler(0, randomAngle, 0);
+            nextObservationTurnTime = Time.time + Random.Range(1.0f, 1.5f);
+        }
+
+        float angleDifference = Quaternion.Angle(transform.rotation, targetObservationRotation);
+        if (angleDifference > 0.1f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetObservationRotation, observationAngularSpeed * Time.deltaTime / angleDifference);
+        }
+        else
+        {
+            transform.rotation = targetObservationRotation;
+        }
+    }
+
+
+    // --- GONIENIE ---
+    void HandleChasing(bool canSeePlayer)
+    {
+        if (canSeePlayer)
+        {
+            agent.SetDestination(player.position);
+            lastKnownPlayerPosition = player.position;
+        }
+        else
+        {
+            searchOriginPosition = transform.position;
+            TransitionToState(AIState.Searching);
+        }
+    }
+
+    // --- SZUKANIE ---
+    void HandleSearching(bool canSeePlayer)
+    {
+        if (canSeePlayer)
+        {
+            TransitionToState(AIState.Chasing);
+            return;
+        }
+
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+        {
+            if (!agent.hasPath || agent.velocity.sqrMagnitude < 0.1f * 0.1f)
+            {
+                if (isSweepingArea)
+                {
+                    ProceedToNextSweepPoint();
+                }
+                else
+                {
+                    if (areaSweepEnabled) StartAreaSweep();
+                    else FinishSearching();
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region Metody Pomocnicze (Stany i Logika)
+
+    // Inicjalizuje tryb patrolowania i listê dostêpnych waypointów
+    void InitializePatrolMode()
+    {
+        useWaypoints = patrolWaypoints != null && patrolWaypoints.Count > 0;
+        if (useWaypoints)
+        {
+            // Usuñ puste wpisy z listy waypointów
+            patrolWaypoints.RemoveAll(item => item == null);
+
+            if (patrolWaypoints.Count == 0)
+            {
+                Debug.LogWarning($"[{gameObject.name}] Lista waypointów jest pusta po usuniêciu nulli. U¿ywam losowego patrolowania.", this);
+                useWaypoints = false;
+            }
+            else
+            {
+                // Wype³nij listê dostêpnych indeksów na starcie
+                FillAvailableWaypoints();
+                currentWaypointIndex = -1; // Resetuj ostatni indeks
+                // Debug.Log($"[{gameObject.name}] U¿ywam waypointów. Dostêpne na starcie: {availableWaypointIndices.Count}");
+            }
+        }
+    }
+
+    // Wype³nia listê availableWaypointIndices wszystkimi indeksami
+    void FillAvailableWaypoints()
+    {
+        availableWaypointIndices.Clear();
+        // Dodaj indeksy od 0 do N-1
+        availableWaypointIndices.AddRange(Enumerable.Range(0, patrolWaypoints.Count));
+        // Alternatywnie:
+        // for (int i = 0; i < patrolWaypoints.Count; i++)
+        // {
+        //     availableWaypointIndices.Add(i);
+        // }
+    }
+
+
+    // Ustawia nastêpny cel patrolu (waypoint lub losowy)
+    void FindNextPatrolTarget()
+    {
+        patrolTargetSet = false;
+
+        if (useWaypoints)
+        {
+            // --- NOWA LOGIKA: LOSOWY Z DOSTÊPNYCH, RESETOWANIE CYKLU ---
+            if (availableWaypointIndices.Count == 0)
+            {
+                // Skoñczy³ siê cykl, resetuj listê dostêpnych
+                // Debug.Log($"[{gameObject.name}] Wszystkie waypointy odwiedzone. Resetujê cykl.");
+                FillAvailableWaypoints();
+
+                // WA¯NE: Usuñ z nowej listy indeks waypointa, do którego W£AŒNIE dotarliœmy,
+                // aby nie wybra³ go od razu ponownie (chyba ¿e jest tylko jeden).
+                if (patrolWaypoints.Count > 1 && currentWaypointIndex != -1)
+                {
+                    availableWaypointIndices.Remove(currentWaypointIndex);
+                    // Debug.Log($"[{gameObject.name}] Usuniêto ostatnio odwiedzony indeks {currentWaypointIndex} z nowej listy dostêpnych.");
+                }
+
+                // Jeœli po usuniêciu lista znów jest pusta (co mo¿e siê zdarzyæ tylko przy 1 waypoincie),
+                // to znaczy, ¿e musimy go wybraæ ponownie. Wype³nijmy j¹ jeszcze raz.
+                if (availableWaypointIndices.Count == 0 && patrolWaypoints.Count > 0)
+                {
+                    // Debug.Log($"[{gameObject.name}] Lista dostêpnych pusta po usuniêciu ostatniego (prawdopodobnie tylko 1 waypoint). Resetujê ponownie.");
+                    FillAvailableWaypoints();
+                }
+            }
+
+            // Jeœli nadal mamy dostêpne waypointy (powinniœmy, chyba ¿e lista patrolWaypoints jest pusta)
+            if (availableWaypointIndices.Count > 0)
+            {
+                // Wybierz losowy indeks Z LISTY DOSTÊPNYCH
+                int randomIndexInAvailableList = Random.Range(0, availableWaypointIndices.Count);
+                int nextWaypointIndex = availableWaypointIndices[randomIndexInAvailableList];
+
+                // Usuñ wybrany indeks z listy dostêpnych
+                availableWaypointIndices.RemoveAt(randomIndexInAvailableList);
+
+                // Zapisz wybrany indeks jako bie¿¹cy
+                currentWaypointIndex = nextWaypointIndex;
+
+                // SprawdŸ, czy waypoint na tym indeksie istnieje
+                if (patrolWaypoints[currentWaypointIndex] != null)
+                {
+                    currentPatrolTargetPosition = patrolWaypoints[currentWaypointIndex].position;
+                    patrolTargetSet = true;
+                    // Debug.Log($"[{gameObject.name}] Wybrano waypoint {currentWaypointIndex}: {patrolWaypoints[currentWaypointIndex].name}. Pozosta³o dostêpnych: {availableWaypointIndices.Count}", this);
+                }
+                else
+                {
+                    Debug.LogError($"[{gameObject.name}] Wybrany waypoint na indeksie {currentWaypointIndex} jest NULL! Szukam nastêpnego.", this);
+                    // Nie ustawiamy celu, spróbuje ponownie w nastêpnej klatce
+                    return;
                 }
             }
             else
             {
-                walkPointSet = false; // Nie znaleziono punktu na NavMesh blisko AI
-                Debug.LogWarning("AI: Nie uda³o siê znaleŸæ punktu na NavMesh blisko AI.", this);
+                // To nie powinno siê zdarzyæ, jeœli lista patrolWaypoints nie jest pusta
+                Debug.LogError($"[{gameObject.name}] Brak dostêpnych waypointów do wybrania, mimo ¿e useWaypoints=true!", this);
+                return;
+            }
+            // --- KONIEC NOWEJ LOGIKI ---
+        }
+        else // Tryb losowych punktów (bez zmian)
+        {
+            Vector3 targetDirection = Vector3.zero;
+            bool useBias = false;
+            if (nextPatrolDirectionBias.HasValue)
+            {
+                targetDirection = nextPatrolDirectionBias.Value;
+                useBias = true;
+                nextPatrolDirectionBias = null;
+            }
+
+            if (SearchWalkPoint(targetDirection, !useBias, out currentPatrolTargetPosition))
+            {
+                patrolTargetSet = true;
+            }
+        }
+
+        // Jeœli znaleziono cel, ustaw go dla agenta i sprawdŸ osi¹galnoœæ
+        if (patrolTargetSet)
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (agent.CalculatePath(currentPatrolTargetPosition, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                agent.SetDestination(currentPatrolTargetPosition);
+            }
+            else
+            {
+                Debug.LogWarning($"[{gameObject.name}] Cel patrolu {currentPatrolTargetPosition} nieosi¹galny. Szukam nowego.", this);
+                patrolTargetSet = false; // Oznacz, ¿e trzeba szukaæ ponownie
+                // Jeœli u¿ywamy waypointów, powinniœmy te¿ przywróciæ w³aœnie usuniêty indeks do dostêpnych,
+                // bo nie uda³o siê do niego dojœæ.
+                if (useWaypoints && currentWaypointIndex != -1 && !availableWaypointIndices.Contains(currentWaypointIndex))
+                {
+                    // Debug.Log($"[{gameObject.name}] Przywracam indeks {currentWaypointIndex} do dostêpnych z powodu nieosi¹galnoœci celu.", this);
+                    availableWaypointIndices.Add(currentWaypointIndex);
+                }
             }
         }
     }
 
-
-    bool CheckLineOfSight()
+    // Rozpoczyna przeszukiwanie obszaru wokó³ LKP (z punktami w ró¿nych kierunkach)
+    void StartAreaSweep()
     {
-        if (player == null) return false; // Jeœli gracz nie istnieje
+        isSweepingArea = true;
+        sweepPoints.Clear();
+        currentSweepPointIndex = -1;
 
-        // SprawdŸ dystans
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (distanceToPlayer > sightRange) return false; // Gracz za daleko
-
-        // SprawdŸ k¹t widzenia
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
-        if (Vector3.Angle(transform.forward, directionToPlayer) > fieldOfViewAngle / 2) return false; // Gracz poza k¹tem widzenia
-
-        // SprawdŸ przeszkody za pomoc¹ Raycast
-        // Pozycja "oczu" AI (trochê poni¿ej szczytu agenta)
-        Vector3 rayOrigin = transform.position + Vector3.up * (agent.height * 0.8f);
-        // Celuj w œrodek cia³a gracza (mo¿na dostosowaæ)
-        Vector3 playerTargetPos = player.position + Vector3.up * 1.0f;
-        Vector3 directionForRay = (playerTargetPos - rayOrigin).normalized;
-
-        RaycastHit hit;
-        // Wystrzel promieñ sprawdzaj¹cy warstwy przeszkód LUB gracza
-        if (Physics.Raycast(rayOrigin, directionForRay, out hit, sightRange, obstacleMask | playerMask))
+        if (numberOfSweepPoints <= 0)
         {
-            // SprawdŸ, czy trafiony obiekt jest na warstwie gracza
-            // U¿ywamy operatora przesuniêcia bitowego (1 << layer) i operatora bitowego AND (&)
-            if (((1 << hit.collider.gameObject.layer) & playerMask) != 0)
-            {
-                // Dodatkowo upewnij siê, ¿e trafiony obiekt to faktycznie ten gracz (na wypadek innych obiektów na tej warstwie)
-                if (hit.transform == player)
-                {
-                    // Widzimy gracza!
-                    // Debug.DrawLine(rayOrigin, hit.point, Color.green);
-                    return true;
-                }
-            }
-            // Trafiono przeszkodê na drodze do gracza
-            // Debug.DrawLine(rayOrigin, hit.point, Color.red);
+            isSweepingArea = false;
+            FinishSearching();
+            return;
         }
-        // else
-        // {
-        //     // Promieñ nic nie trafi³ w zasiêgu (ale gracz jest w zasiêgu i k¹cie - ma³o prawdopodobne przy poprawnych maskach)
-        //     Debug.DrawRay(rayOrigin, directionForRay * sightRange, Color.yellow);
-        // }
 
-        // Gracz jest zas³oniêty lub coœ posz³o nie tak
+        float angleIncrement = 360f / numberOfSweepPoints;
+        for (int i = 0; i < numberOfSweepPoints; i++)
+        {
+            float targetAngle = (i * angleIncrement) + Random.Range(-angleIncrement / 4f, angleIncrement / 4f);
+            float randomRadius = Random.Range(sweepRadius * 0.4f, sweepRadius);
+            Vector3 direction = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+            Vector3 potentialPoint = lastKnownPlayerPosition + direction * randomRadius;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(potentialPoint, out hit, sweepRadius * 0.3f, NavMesh.AllAreas))
+            {
+                bool tooClose = false;
+                if (Vector3.Distance(hit.position, lastKnownPlayerPosition) < agent.stoppingDistance * 1.5f) tooClose = true;
+                if (!tooClose)
+                {
+                    foreach (Vector3 existingPoint in sweepPoints)
+                    {
+                        if (Vector3.Distance(hit.position, existingPoint) < agent.stoppingDistance * 2.0f) { tooClose = true; break; }
+                    }
+                }
+                if (!tooClose) sweepPoints.Add(hit.position);
+            }
+        }
+
+        if (sweepPoints.Count == 0)
+        {
+            isSweepingArea = false;
+            FinishSearching();
+            return;
+        }
+        ProceedToNextSweepPoint();
+    }
+
+    // Ustawia nastêpny punkt przeszukiwania jako cel lub koñczy przeszukiwanie
+    void ProceedToNextSweepPoint()
+    {
+        currentSweepPointIndex++;
+        if (currentSweepPointIndex < sweepPoints.Count)
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (agent.CalculatePath(sweepPoints[currentSweepPointIndex], path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                agent.SetDestination(sweepPoints[currentSweepPointIndex]);
+            }
+            else
+            {
+                ProceedToNextSweepPoint(); // Spróbuj nastêpny
+            }
+        }
+        else
+        {
+            isSweepingArea = false;
+            FinishSearching();
+        }
+    }
+
+    // Koñczy stan Searching i przechodzi do Patrolling
+    void FinishSearching()
+    {
+        Vector3 searchDirection = (lastKnownPlayerPosition - searchOriginPosition).normalized;
+        if (!useWaypoints && searchDirection.sqrMagnitude > 0.1f)
+        {
+            nextPatrolDirectionBias = searchDirection;
+        }
+        else
+        {
+            nextPatrolDirectionBias = null;
+        }
+        TransitionToState(AIState.Patrolling);
+    }
+
+
+    // Próbuje znaleŸæ losowy punkt na NavMesh
+    bool SearchWalkPoint(Vector3 directionBias, bool fullyRandom, out Vector3 result)
+    {
+        Vector3 randomDirection;
+        if (fullyRandom || directionBias == Vector3.zero)
+        {
+            float randomAngle = Random.Range(0f, 360f);
+            randomDirection = Quaternion.Euler(0, randomAngle, 0) * Vector3.forward;
+        }
+        else
+        {
+            float randomAngleInCone = Random.Range(-patrolBiasConeAngle / 2f, patrolBiasConeAngle / 2f);
+            randomDirection = Quaternion.LookRotation(directionBias) * Quaternion.Euler(0, randomAngleInCone, 0) * Vector3.forward;
+        }
+
+        float randomDistance = Random.Range(randomWalkPointRange * 0.5f, randomWalkPointRange);
+        Vector3 potentialPoint = transform.position + randomDirection.normalized * randomDistance;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(potentialPoint, out hit, randomWalkPointRange * 0.5f, NavMesh.AllAreas))
+        {
+            result = hit.position;
+            return true;
+        }
+        else
+        {
+            if (!fullyRandom) return SearchWalkPoint(Vector3.zero, true, out result);
+        }
+        result = transform.position;
         return false;
     }
 
-    // Coroutine do rozgl¹dania siê w miejscu
-    IEnumerator LookAroundRoutine()
+
+    // Zarz¹dza zmian¹ stanu AI
+    void TransitionToState(AIState newState)
     {
-        Debug.Log("AI: Rozpoczynam rozgl¹danie siê (w tym za siebie)...");
-        Quaternion startRotation = transform.rotation; // Zapamiêtaj kierunek, w którym patrzy³ AI po dotarciu
+        if (currentState == newState && agent.isOnNavMesh) return;
+        if (currentState == AIState.Observing) { agent.isStopped = false; }
 
-        // Definiuj sekwencjê obrotów wzglêdem pocz¹tkowego kierunku
-        Quaternion lookLeft = startRotation * Quaternion.Euler(0, -lookAngleSide, 0);
-        Quaternion lookRight = startRotation * Quaternion.Euler(0, lookAngleSide, 0);
-        Quaternion lookBehind = startRotation * Quaternion.Euler(0, 180f, 0);
+        AIState previousState = currentState;
+        currentState = newState;
 
-        // Sekwencja: Lewo -> Pauza -> Prawo -> Pauza -> Ty³ -> Pauza -> Powrót do startu -> Pauza
-        Quaternion[] targets = { lookLeft, lookRight, lookBehind, startRotation };
-        string[] targetNames = { "w lewo", "w prawo", "za siebie", "do przodu" }; // Dla debugowania
-
-        for (int i = 0; i < targets.Length; i++)
+        switch (newState)
         {
-            Quaternion targetRotation = targets[i];
-            // Debug.Log($"AI: Obracam siê {targetNames[i]}...");
+            case AIState.Patrolling:
+                agent.isStopped = false;
+                agent.updateRotation = true;
+                agent.speed = patrolSpeed;
+                agent.angularSpeed = patrolAngularSpeed;
+                agent.acceleration = patrolAcceleration;
+                if (previousState != AIState.Observing) patrolTargetSet = false;
+                isSweepingArea = false;
+                break;
 
-            // Obrót do celu
-            // Sprawdzamy timer *przed* rozpoczêciem obrotu, bo móg³ min¹æ podczas poprzedniej pauzy
-            if (searchTimer >= timeToLosePlayer)
-            {
-                Debug.Log("AI: Czas na szukanie min¹³ przed rozpoczêciem kolejnego obrotu.");
-                lookAroundCoroutine = null; // Zresetuj referencjê
-                yield break; // Zakoñcz korutynê
-            }
+            case AIState.Observing:
+                agent.isStopped = true;
+                agent.updateRotation = true;
+                observationTimer = observationDuration;
+                nextObservationTurnTime = Time.time + Random.Range(0.1f, 0.5f);
+                targetObservationRotation = transform.rotation;
+                isSweepingArea = false;
+                break;
 
-            while (Quaternion.Angle(transform.rotation, targetRotation) > 5f) // Obracaj, a¿ k¹t bêdzie ma³y
-            {
-                // Sprawdzaj czy nie widaæ gracza lub czy czas nie min¹³ *podczas* obrotu
-                if (CheckLineOfSight())
-                {
-                    Debug.Log("AI: Zauwa¿y³em gracza podczas rozgl¹dania!");
-                    lookAroundCoroutine = null; // Zresetuj referencjê
-                    yield break; // Zakoñcz korutynê (stan zmieni siê w Update)
-                }
-                if (searchTimer >= timeToLosePlayer)
-                {
-                    Debug.Log("AI: Czas na szukanie min¹³ podczas obrotu.");
-                    lookAroundCoroutine = null; // Zresetuj referencjê
-                    yield break; // Zakoñcz korutynê (stan zmieni siê w HandleSearching)
-                }
+            case AIState.Chasing:
+                agent.isStopped = false;
+                agent.updateRotation = false;
+                agent.speed = chaseSpeed;
+                agent.acceleration = chaseAcceleration;
+                nextPatrolDirectionBias = null;
+                isSweepingArea = false;
+                if (player != null) { agent.SetDestination(player.position); lastKnownPlayerPosition = player.position; }
+                break;
 
-                // P³ynny obrót w kierunku celu
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, searchRotationSpeed * Time.deltaTime);
-                yield return null; // Czekaj na nastêpn¹ klatkê
-            }
+            case AIState.Searching:
+                agent.isStopped = false;
+                agent.updateRotation = true;
+                agent.speed = searchSpeed;
+                agent.angularSpeed = searchAngularSpeed;
+                agent.acceleration = searchAcceleration;
+                nextPatrolDirectionBias = null;
+                isSweepingArea = false;
+                sweepPoints.Clear();
+                currentSweepPointIndex = -1;
 
-            // Dotarliœmy do celu obrotu - krótka pauza
-            // Debug.Log("AI: Pauza w rozgl¹daniu.");
-            float pauseEndTime = Time.time + lookPauseDuration;
-            while (Time.time < pauseEndTime)
-            {
-                // Sprawdzaj czy nie widaæ gracza lub czy czas nie min¹³ *podczas* pauzy
-                if (CheckLineOfSight())
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(lastKnownPlayerPosition, out hit, 1.0f, NavMesh.AllAreas))
                 {
-                    Debug.Log("AI: Zauwa¿y³em gracza podczas pauzy w rozgl¹daniu!");
-                    lookAroundCoroutine = null;
-                    yield break;
+                    NavMeshPath path = new NavMeshPath();
+                    if (agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete) agent.SetDestination(hit.position);
+                    else { TransitionToState(AIState.Patrolling); }
                 }
-                if (searchTimer >= timeToLosePlayer)
-                {
-                    Debug.Log("AI: Czas na szukanie min¹³ podczas pauzy w rozgl¹daniu.");
-                    lookAroundCoroutine = null;
-                    yield break;
-                }
-                yield return null; // Czekaj na nastêpn¹ klatkê
-            }
+                else { TransitionToState(AIState.Patrolling); }
+                break;
         }
-
-        Debug.Log("AI: Zakoñczy³em pe³n¹ sekwencjê rozgl¹dania.");
-        lookAroundCoroutine = null; // Zresetuj referencjê po normalnym zakoñczeniu
-        // Stan na Patrolling zmieni siê w HandleSearching, gdy timer ostatecznie minie (jeœli jeszcze nie min¹³)
     }
 
+    // Sprawdza, czy AI widzi gracza
+    bool CheckLineOfSight()
+    {
+        if (player == null) return false;
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (distanceToPlayer > sightRange) return false;
 
-    // Rysowanie Gizmos w edytorze dla ³atwiejszego debugowania
+        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        if (currentState != AIState.Observing)
+        {
+            float angle = Vector3.Angle(transform.forward, directionToPlayer);
+            if (angle > fieldOfViewAngle / 2) return false;
+        }
+
+        Vector3 rayOrigin = transform.position + Vector3.up * (agent.height * 0.8f);
+        Vector3 playerTargetPos = player.position + Vector3.up * 1.0f;
+        Vector3 directionForRay = (playerTargetPos - rayOrigin).normalized;
+        RaycastHit hitInfo;
+        if (Physics.Raycast(rayOrigin, directionForRay, out hitInfo, sightRange, obstacleMask | playerMask))
+        {
+            if (((1 << hitInfo.collider.gameObject.layer) & playerMask) != 0)
+            {
+                if (hitInfo.transform == player) return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    #endregion
+
+    #region Gizmos (Wizualizacje w Edytorze)
+
     void OnDrawGizmosSelected()
     {
-        // Zasiêg widzenia (¿ó³ty okr¹g)
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
 
-        // K¹t widzenia (niebieskie linie)
         Gizmos.color = Color.blue;
         Vector3 fovLine1 = Quaternion.AngleAxis(fieldOfViewAngle / 2, transform.up) * transform.forward * sightRange;
         Vector3 fovLine2 = Quaternion.AngleAxis(-fieldOfViewAngle / 2, transform.up) * transform.forward * sightRange;
         Gizmos.DrawLine(transform.position, transform.position + fovLine1);
         Gizmos.DrawLine(transform.position, transform.position + fovLine2);
 
-        // Linia wzroku do gracza (jeœli istnieje)
         if (player != null)
         {
-            // U¿yj wysokoœci agenta jeœli dostêpna, inaczej domyœlna wartoœæ
             float eyeHeight = (agent != null ? agent.height * 0.8f : 1.5f);
             Vector3 rayOrigin = transform.position + Vector3.up * eyeHeight;
-            Vector3 playerTargetPos = player.position + Vector3.up * 1.0f; // Celuj w œrodek gracza
+            Vector3 playerTargetPos = player.position + Vector3.up * 1.0f;
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
             Vector3 directionForRay = (playerTargetPos - rayOrigin).normalized;
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-            // SprawdŸ warunki widzenia (dystans i k¹t) przed rysowaniem Raycast Gizmo
-            if (distanceToPlayer <= sightRange && Vector3.Angle(transform.forward, (player.position - transform.position).normalized) <= fieldOfViewAngle / 2)
+            if (distanceToPlayer <= sightRange)
             {
-                RaycastHit hit;
-                // Rysuj liniê Raycast tylko jeœli warunki s¹ spe³nione
-                if (Physics.Raycast(rayOrigin, directionForRay, out hit, sightRange, obstacleMask | playerMask))
+                bool inFov = (currentState == AIState.Observing) || (Vector3.Angle(transform.forward, directionToPlayer) <= fieldOfViewAngle / 2);
+                if (inFov)
                 {
-                    // Jeœli trafiono gracza - zielona linia do punktu trafienia
-                    if (((1 << hit.collider.gameObject.layer) & playerMask) != 0 && hit.transform == player)
-                        Gizmos.color = Color.green;
-                    // Jeœli trafiono przeszkodê - czerwona linia do punktu trafienia
+                    RaycastHit hitInfo;
+                    if (Physics.Raycast(rayOrigin, directionForRay, out hitInfo, sightRange, obstacleMask | playerMask))
+                    {
+                        if (((1 << hitInfo.collider.gameObject.layer) & playerMask) != 0 && hitInfo.transform == player) Gizmos.color = Color.green;
+                        else Gizmos.color = Color.red;
+                        Gizmos.DrawLine(rayOrigin, hitInfo.point);
+                    }
                     else
+                    {
                         Gizmos.color = Color.red;
-                    Gizmos.DrawLine(rayOrigin, hit.point);
-                }
-                else
-                {
-                    // Jeœli nic nie trafiono w zasiêgu (a gracz jest w zasiêgu/k¹cie) - ¿ó³ta linia na ca³¹ d³ugoœæ
-                    Gizmos.color = Color.yellow;
-                    Gizmos.DrawLine(rayOrigin, rayOrigin + directionForRay * sightRange);
+                        Gizmos.DrawLine(rayOrigin, rayOrigin + directionForRay * sightRange);
+                    }
                 }
             }
         }
 
-        // Punkt patrolu (jeœli ustawiony) - cyjanowa sfera i linia
-        if (walkPointSet)
+
+        if (patrolTargetSet && (currentState == AIState.Patrolling || currentState == AIState.Observing))
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(walkPoint, 0.5f);
-            Gizmos.DrawLine(transform.position, walkPoint);
+            Gizmos.DrawSphere(currentPatrolTargetPosition, 0.5f);
+            if (agent != null && agent.hasPath) Gizmos.DrawLine(transform.position, agent.pathEndPosition);
         }
 
-        // Ostatnia znana pozycja gracza (gdy AI szuka) - magenta sfera i linia
-        if (currentState == AIState.Searching)
+        if (currentState == AIState.Searching && agent != null)
         {
             Gizmos.color = Color.magenta;
-            Gizmos.DrawSphere(lastKnownPlayerPosition, 0.7f);
-            // Rysuj liniê do celu agenta (który powinien byæ lastKnownPlayerPosition)
-            if (agent != null && agent.hasPath)
+            Gizmos.DrawWireSphere(lastKnownPlayerPosition, 1.0f);
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(searchOriginPosition, lastKnownPlayerPosition);
+
+            if (isSweepingArea)
             {
+                Gizmos.color = new Color(1f, 0f, 0f, 0.1f);
+                Gizmos.DrawSphere(lastKnownPlayerPosition, sweepRadius);
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(lastKnownPlayerPosition, sweepRadius);
+                Gizmos.color = Color.yellow;
+                foreach (var point in sweepPoints) Gizmos.DrawSphere(point, 0.3f);
+
+                if (currentSweepPointIndex >= 0 && currentSweepPointIndex < sweepPoints.Count)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(sweepPoints[currentSweepPointIndex], 0.4f);
+                    if (agent.hasPath) Gizmos.DrawLine(transform.position, agent.pathEndPosition);
+                }
+            }
+            else if (agent.hasPath)
+            {
+                Gizmos.color = Color.magenta;
                 Gizmos.DrawLine(transform.position, agent.pathEndPosition);
             }
-            else
+        }
+
+        if (nextPatrolDirectionBias.HasValue && !useWaypoints)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position + Vector3.up * 0.5f, nextPatrolDirectionBias.Value * 5f);
+        }
+
+        if (useWaypoints && patrolWaypoints.Count > 0)
+        {
+            Gizmos.color = Color.blue;
+            for (int i = 0; i < patrolWaypoints.Count; i++)
             {
-                Gizmos.DrawLine(transform.position, lastKnownPlayerPosition); // Jeœli nie ma œcie¿ki, rysuj bezpoœrednio
+                if (patrolWaypoints[i] != null)
+                {
+                    Gizmos.DrawWireSphere(patrolWaypoints[i].position, 0.5f);
+                    int nextIndex = (i + 1) % patrolWaypoints.Count;
+                    // Rysuj linie tylko jeœli oba punkty istniej¹
+                    if (patrolWaypoints[nextIndex] != null)
+                    {
+                        // Zmieñ kolor linii na szary, bo kolejnoœæ jest teraz losowa
+                        Gizmos.color = Color.gray;
+                        Gizmos.DrawLine(patrolWaypoints[i].position, patrolWaypoints[nextIndex].position);
+                        Gizmos.color = Color.blue; // Wróæ do niebieskiego dla nastêpnej kuli
+                    }
+                }
+            }
+            // Zaznacz ostatnio wybrany/osi¹gniêty waypoint
+            if (currentWaypointIndex >= 0 && currentWaypointIndex < patrolWaypoints.Count && patrolWaypoints[currentWaypointIndex] != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(patrolWaypoints[currentWaypointIndex].position, 0.6f);
             }
         }
     }
+
+    #endregion
 }
