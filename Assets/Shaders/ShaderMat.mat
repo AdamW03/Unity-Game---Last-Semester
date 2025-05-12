@@ -126,7 +126,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _Strengh: 8.804108
+    - _Strengh: 5.151313
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
