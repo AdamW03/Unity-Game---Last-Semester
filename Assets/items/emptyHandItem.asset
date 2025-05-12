@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: emptyHandItem
   m_EditorClassIdentifier: 
   itemName: "pusta r\u0119ka"
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0b2d2958269558949ae7390a346c3de7, type: 3}
