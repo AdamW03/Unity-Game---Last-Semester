@@ -110,12 +110,12 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _GlitchStr: 10
+    - _GlitchStr: 1000
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _NoiseAmount: 10
+    - _NoiseAmount: 1000
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -126,7 +126,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
-    - _Strengh: 0.1
+    - _Strengh: 8.804108
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
