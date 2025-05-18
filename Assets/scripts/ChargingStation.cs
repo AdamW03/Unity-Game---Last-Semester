@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections; // Dla Coroutine (opcjonalnie, np. dla opÛünieÒ)
+using System.Collections; // Dla Coroutine (opcjonalnie, np. dla opÛünieÅE
 
 [RequireComponent(typeof(Interactable))] // Wymagaj komponentu Interactable
 public class ChargingStation : MonoBehaviour
@@ -7,7 +7,7 @@ public class ChargingStation : MonoBehaviour
     [Header("Wymagane Przedmioty")]
     [Tooltip("Dane InventoryItem reprezentujπce telefon.")]
     public InventoryItem requiredPhoneItemData;
-    [Tooltip("Dane InventoryItem reprezentujπce ≥adowarkÍ.")]
+    [Tooltip("Dane InventoryItem reprezentujπce ≥adowarkÅE")]
     public InventoryItem requiredChargerItemData;
 
     [Header("Referencje Stacji")]
@@ -19,13 +19,13 @@ public class ChargingStation : MonoBehaviour
     private Interactable interactable;
 
     [Header("Ustawienia £adowania")]
-    [Tooltip("SzybkoúÊ ≥adowania baterii na sekundÍ.")]
-    public float chargingRate = 5.0f; // 5 jednostek baterii na sekundÍ
+    [Tooltip("SzybkoúÊ ≥adowania baterii na sekundÅE")]
+    public float chargingRate = 5.0f; // 5 jednostek baterii na sekundÅE
 
     [Header("Teksty Interakcji")]
-    [Tooltip("Tekst, gdy stacja jest pusta i moøna pod≥πczyÊ telefon.")]
-    public string promptWhenEmpty = "[F] Pod≥πcz telefon i ≥adowarkÍ";
-    [Tooltip("Format tekstu, gdy telefon siÍ ≥aduje. {0} = aktualna bateria, {1} = max bateria.")]
+    [Tooltip("Tekst, gdy stacja jest pusta i moøna pod≥πczyÅEtelefon.")]
+    public string promptWhenEmpty = "[F] Pod≥πcz telefon i ≥adowark";
+    [Tooltip("Format tekstu, gdy telefon siÅE≥aduje. {0} = aktualna bateria, {1} = max bateria.")]
     public string promptFormatWhenCharging = "[F] £adowanie ({0:0}/{1:0}). Odbierz"; // Formatowanie do liczb ca≥kowitych
     [Tooltip("Tekst, gdy wystπpi≥ b≥πd (np. brak przedmiotÛw).")]
     public string promptError = "Potrzebujesz telefonu i ≥adowarki";
@@ -56,7 +56,7 @@ public class ChargingStation : MonoBehaviour
 
         if (requiredPhoneItemData == null || requiredChargerItemData == null)
         {
-            Debug.LogError($"ChargingStation na '{gameObject.name}': Musisz przypisaÊ 'requiredPhoneItemData' i 'requiredChargerItemData'!", this);
+            Debug.LogError($"ChargingStation na '{gameObject.name}': Musisz przypisaÅE'requiredPhoneItemData' i 'requiredChargerItemData'!", this);
             enabled = false;
             return;
         }
@@ -72,7 +72,7 @@ public class ChargingStation : MonoBehaviour
             }
         }
 
-        // Upewnij siÍ, øe wizualizacje sπ wy≥πczone na starcie
+        // Upewnij siÅE øe wizualizacje sπ wy≥πczone na starcie
         UpdateVisuals();
         // Ustaw poczπtkowy tekst interakcji
         UpdateInteractionPrompt(promptWhenEmpty);
@@ -101,7 +101,7 @@ public class ChargingStation : MonoBehaviour
             return;
         }
 
-        // 1. Sprawdü, czy gracz ma WYBRANY telefon
+        // 1. SprawdÅE czy gracz ma WYBRANY telefon
         InventoryItem selectedItem = CarouselInventory.Instance.GetSelectedItem();
         if (selectedItem != requiredPhoneItemData)
         {
@@ -111,7 +111,7 @@ public class ChargingStation : MonoBehaviour
             return;
         }
 
-        // 2. Sprawdü, czy gracz ma w ekwipunku ≥adowarkÍ (gdziekolwiek)
+        // 2. SprawdÅE czy gracz ma w ekwipunku ≥adowarkÅE(gdziekolwiek)
         if (!CarouselInventory.Instance.HasItem(requiredChargerItemData))
         {
             Debug.Log("Gracz nie ma ≥adowarki w ekwipunku.");
@@ -120,7 +120,7 @@ public class ChargingStation : MonoBehaviour
             return;
         }
 
-        // 3. Znajdü instancjÍ PhoneSystem powiπzanπ z wybranym telefonem
+        // 3. ZnajdÅEinstancjÅEPhoneSystem powiπzanπ z wybranym telefonem
         //    Zak≥adamy, øe aktywny PhoneSystem ma ustawiony 'isSelected = true'
         //    To jest uproszczenie - lepszym rozwiπzaniem by≥oby, gdyby Inventory zwraca≥o GameObject
         PhoneSystem phoneToCharge = FindSelectedPhoneSystemInstance();
@@ -128,22 +128,22 @@ public class ChargingStation : MonoBehaviour
         if (phoneToCharge == null)
         {
             Debug.LogError($"Nie moøna znaleüÊ aktywnej instancji PhoneSystem dla {requiredPhoneItemData.itemName}");
-            ShowErrorPrompt(); // Moøna dodaÊ inny b≥πd
+            ShowErrorPrompt(); // Moøna dodaÅEinny b≥πd
             PlaySound(errorSound);
             return;
         }
 
-        // 4. Wszystko siÍ zgadza - rozpocznij ≥adowanie
+        // 4. Wszystko siÅEzgadza - rozpocznij ≥adowanie
         Debug.Log($"Rozpoczynanie ≥adowania telefonu: {phoneToCharge.gameObject.name}");
 
-        // UsuÒ przedmioty z ekwipunku
+        // UsuÅEprzedmioty z ekwipunku
         bool phoneRemoved = CarouselInventory.Instance.RemoveItem(requiredPhoneItemData);
         bool chargerRemoved = CarouselInventory.Instance.RemoveItem(requiredChargerItemData);
 
         if (!phoneRemoved || !chargerRemoved)
         {
             Debug.LogError("B≥πd podczas usuwania przedmiotÛw z ekwipunku! Odwracanie operacji.");
-            // SprÛbuj dodaÊ przedmioty z powrotem, jeúli coú posz≥o nie tak
+            // SprÛbuj dodaÅEprzedmioty z powrotem, jeúli coÅEposz≥o nie tak
             if (phoneRemoved) CarouselInventory.Instance.AddItem(requiredPhoneItemData);
             if (chargerRemoved) CarouselInventory.Instance.AddItem(requiredChargerItemData);
             ShowErrorPrompt(); // Pokaø b≥πd
@@ -153,35 +153,35 @@ public class ChargingStation : MonoBehaviour
 
         // Ustaw stan stacji
         isCharging = true;
-        connectedPhoneInstance = phoneToCharge; // Zapisz referencjÍ do telefonu
+        connectedPhoneInstance = phoneToCharge; // Zapisz referencjÅEdo telefonu
 
-        // Zaktualizuj wyglπd i interakcjÍ
+        // Zaktualizuj wyglπd i interakcjÅE
         UpdateVisuals();
         UpdateInteractionPrompt(); // Zaktualizuje tekst na format ≥adowania
         PlaySound(connectSound);
-        PlayChargingLoop(true); // Zacznij odtwarzaÊ pÍtlÍ düwiÍkowπ ≥adowania
+        PlayChargingLoop(true); // Zacznij odtwarzaÅEpÍtlÅEdüwiÍkowπ ≥adowania
     }
 
     // Prosta metoda do znalezienia PhoneSystem, ktÛry jest aktualnie zaznaczony
-    // UWAGA: To moøe byÊ nieefektywne w duøych scenach.
+    // UWAGA: To moøe byÅEnieefektywne w duøych scenach.
     private PhoneSystem FindSelectedPhoneSystemInstance()
     {
-        PhoneSystem[] allPhoneSystems = FindObjectsOfType<PhoneSystem>(); // Znajdü wszystkie w scenie
+        PhoneSystem[] allPhoneSystems = FindObjectsOfType<PhoneSystem>(); // ZnajdÅEwszystkie w scenie
         foreach (PhoneSystem ps in allPhoneSystems)
         {
-            // Sprawdü czy dane siÍ zgadzajπ ORAZ czy ten telefon uwaøa siÍ za wybrany
-            // (pole 'isSelected' jest prywatne, ale [SerializeField] - nie moøemy go odczytaÊ bezpoúrednio)
+            // SprawdÅEczy dane siÅEzgadzajπ ORAZ czy ten telefon uwaøa siÅEza wybrany
+            // (pole 'isSelected' jest prywatne, ale [SerializeField] - nie moøemy go odczytaÅEbezpoúrednio)
             // Zamiast tego, polegamy na tym, øe CarouselInventory wie, ktÛry *itemData* jest wybrany.
-            // Musimy znaleüÊ PhoneSystem pasujπcy do *itemData* telefonu, ktÛry chcemy na≥adowaÊ.
+            // Musimy znaleüÊ PhoneSystem pasujπcy do *itemData* telefonu, ktÛry chcemy na≥adowaÅE
             if (ps.phoneItemData == requiredPhoneItemData)
             {
-                // Dodatkowo, moøemy sprawdziÊ, czy ten telefon *myúli*, øe jest wybrany, jeúli mamy dostÍp
+                // Dodatkowo, moøemy sprawdziÅE czy ten telefon *myúli*, øe jest wybrany, jeúli mamy dostÍp
                 // if(ps.IsSelected()) // Gdyby by≥a taka publiczna metoda w PhoneSystem
                 return ps;
             }
         }
         // Jeúli nie znaleziono, zwrÛÊ null
-        // Moøe to oznaczaÊ, øe obiekt telefonu nie istnieje w scenie lub nie ma przypisanego phoneItemData
+        // Moøe to oznaczaÅE øe obiekt telefonu nie istnieje w scenie lub nie ma przypisanego phoneItemData
         return null;
     }
 
@@ -203,29 +203,29 @@ public class ChargingStation : MonoBehaviour
         isCharging = false;
         connectedPhoneInstance = null;
 
-        // Zaktualizuj wyglπd i interakcjÍ
+        // Zaktualizuj wyglπd i interakcjÅE
         UpdateVisuals();
         UpdateInteractionPrompt(promptWhenEmpty); // WrÛÊ do domyúlnego tekstu
         PlaySound(disconnectSound);
-        PlayChargingLoop(false); // Zatrzymaj pÍtlÍ düwiÍkowπ ≥adowania
+        PlayChargingLoop(false); // Zatrzymaj pÍtlÅEdüwiÍkowπ ≥adowania
     }
 
     void Update()
     {
-        // Jeúli ≥adujemy i mamy referencjÍ do telefonu
+        // Jeúli ≥adujemy i mamy referencjÅEdo telefonu
         if (isCharging && connectedPhoneInstance != null)
         {
-            // £aduj bateriÍ
+            // £aduj bateriÅE
             connectedPhoneInstance.ChargeBattery(chargingRate * Time.deltaTime);
 
-            // Aktualizuj tekst interakcji, aby pokazaÊ postÍp
-            // Robimy to tutaj, a nie w ChargeBattery, bo tylko stacja wie, jak ma wyglπdaÊ jej prompt
+            // Aktualizuj tekst interakcji, aby pokazaÅEpostÍp
+            // Robimy to tutaj, a nie w ChargeBattery, bo tylko stacja wie, jak ma wyglπdaÅEjej prompt
             UpdateInteractionPrompt();
 
             // Opcjonalnie: Zatrzymaj ≥adowanie, gdy bateria jest pe≥na
             // if (connectedPhoneInstance.GetCurrentBattery() >= connectedPhoneInstance.GetMaxBattery())
             // {
-            //     // Moøna tu np. zmieniÊ düwiÍk lub lekko zmodyfikowaÊ prompt
+            //     // Moøna tu np. zmieniÅEdüwiÍk lub lekko zmodyfikowaÅEprompt
             // }
         }
     }
@@ -285,7 +285,7 @@ public class ChargingStation : MonoBehaviour
         string originalPrompt = interactable.interactionPrompt; // ZapamiÍtaj obecny tekst (prawdopodobnie promptWhenEmpty)
         UpdateInteractionPrompt(promptError); // Pokaø b≥πd
         yield return new WaitForSeconds(errorPromptDuration); // Poczekaj
-        // PrzywrÛÊ tekst, ktÛry by≥ PRZED b≥Ídem, ale tylko jeúli stan siÍ nie zmieni≥ (nadal nie ≥adujemy)
+        // PrzywrÛÊ tekst, ktÛry by≥ PRZED b≥Ídem, ale tylko jeúli stan siÅEnie zmieni≥ (nadal nie ≥adujemy)
         if (!isCharging)
         {
             UpdateInteractionPrompt(originalPrompt);
@@ -307,7 +307,7 @@ public class ChargingStation : MonoBehaviour
         if (audioSource != null && chargingLoopSound != null)
         {
             if (play && !audioSource.isPlaying)
-            { // OdtwÛrz tylko jeúli nie gra juø czegoú innego (np. connect sound)
+            { // OdtwÛrz tylko jeúli nie gra juø czegoÅEinnego (np. connect sound)
                 audioSource.clip = chargingLoopSound;
                 audioSource.loop = true;
                 audioSource.Play();
