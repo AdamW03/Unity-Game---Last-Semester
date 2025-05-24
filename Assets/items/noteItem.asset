@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f829487065a12944592bea839b8d7684, type: 3}
   m_Name: noteItem
   m_EditorClassIdentifier: 
-  itemName: zeszyt
+  itemName: Notebook
   icon: {fileID: 21300000, guid: c17b72c466210ff43aba10495a32c9c1, type: 3}

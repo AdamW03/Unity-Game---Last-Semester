@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2801130188573763400}
   - component: {fileID: 7524969065127157037}
+  - component: {fileID: 4825020487061156788}
   m_Layer: 0
   m_Name: PauseMenuManager
   m_TagString: Untagged
@@ -45,4 +46,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 0}
-  mainMenuSceneName: MainMenuScene
+  settingsMenuUI: {fileID: 0}
+  sensitivityScrollbar: {fileID: 0}
+  fovScrollbar: {fileID: 0}
+  playerLookComponent: {fileID: 0}
+  playerCameraComponent: {fileID: 0}
+  minSensitivity: 0.5
+  maxSensitivity: 5
+  defaultSensitivity: 2
+  minFOV: 60
+  maxFOV: 90
+  defaultFOV: 75
+  mainMenuSceneName: menu
+--- !u!114 &4825020487061156788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303099709315318922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4632c5d59c69fc144a76f19915561946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonitorDropdown: {fileID: 0}

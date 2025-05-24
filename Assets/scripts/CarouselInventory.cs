@@ -106,7 +106,7 @@ public class CarouselInventory : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Dodano do ekwipunku: {itemToAdd.itemName}");
+        Debug.Log($"Added to inventory: {itemToAdd.itemName}");
         items.Add(itemToAdd);
 
         // Jeœli to by³ pierwszy przedmiot, ustaw go jako aktualny
@@ -127,7 +127,7 @@ public class CarouselInventory : MonoBehaviour
         if (currentItemIndex != -1 && items.Count > 0)
         {
             InventoryItem removedItem = items[currentItemIndex];
-            Debug.Log($"Usuniêto z ekwipunku: {removedItem.itemName}");
+            Debug.Log($"Deleted from inventory: {removedItem.itemName}");
             items.RemoveAt(currentItemIndex);
 
             // Dostosuj indeks
