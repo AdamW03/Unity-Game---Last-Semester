@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; // Do zarz¹dzania scenami
-using UnityEngine.Rendering.PostProcessing; // Do efektów post-processingu
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -10,15 +9,12 @@ public class PauseMenuManager : MonoBehaviour
     [Header("UI Elements")]
     public GameObject pauseMenuUI; // Przeci¹gnij tutaj panel UI menu pauzy
 
-    [Header("Post-Processing")]
-    public PostProcessVolume postProcessVolume; // Przeci¹gnij tutaj obiekt z PostProcessVolume
-    private DepthOfField depthOfField;          // Referencja do efektu Depth of Field
-
     [Header("Scene Management")]
     public string mainMenuSceneName = "MainMenuScene"; // Nazwa sceny menu g³ównego
 
     void Start()
     {
+        // Upewnij siê, ¿e menu jest schowane na starcie i gra dzia³a
         if (pauseMenuUI != null)
         {
             pauseMenuUI.SetActive(false);
@@ -31,14 +27,14 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
 
+        // Ustawienia kursora na start gry (np. dla FPS)
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        InitializeDepthOfField();
     }
 
     void Update()
     {
+        // Nas³uchuj naciœniêcia klawisza Escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -52,56 +48,20 @@ public class PauseMenuManager : MonoBehaviour
         }
     }
 
-    private void InitializeDepthOfField()
-    {
-        if (postProcessVolume != null)
-        {
-            if (postProcessVolume.profile != null)
-            {
-                if (postProcessVolume.profile.TryGetSettings(out depthOfField))
-                {
-                    Debug.Log("PauseMenuManager: Depth of Field effect FOUND in profile.");
-                    // POPRAWKA TUTAJ:
-                    depthOfField.active = false; // Domyœlnie wy³¹czamy efekt przy starcie gry
-                }
-                else
-                {
-                    Debug.LogError("PauseMenuManager: Depth of Field effect NOT FOUND in the assigned PostProcessProfile! Upewnij siê, ¿e efekt 'Depth of Field' jest dodany do profilu przypisanego do PostProcessVolume.");
-                    depthOfField = null;
-                }
-            }
-            else
-            {
-                Debug.LogWarning("PauseMenuManager: PostProcessProfile nie jest przypisany do PostProcessVolume!");
-                depthOfField = null;
-            }
-        }
-        else
-        {
-            Debug.LogWarning("PauseMenuManager: PostProcessVolume nie jest przypisany w Inspektorze. Efekt rozmycia nie bêdzie dzia³a³.");
-            depthOfField = null;
-        }
-    }
-
     public void Resume()
     {
         if (pauseMenuUI != null)
         {
             pauseMenuUI.SetActive(false);
         }
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // Przywraca normalny up³yw czasu
         GameIsPaused = false;
 
+        // Przywracamy kursor do trybu gry
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if (depthOfField != null)
-        {
-            // POPRAWKA TUTAJ:
-            depthOfField.active = false;
-            // POPRAWKA TUTAJ (w logu):
-            Debug.Log("PauseMenuManager: Depth of Field Deactivated. Active state: " + depthOfField.active);
-        }
+        Debug.Log("PauseMenuManager: Gra wznowiona.");
     }
 
     void Pause()
@@ -110,30 +70,20 @@ public class PauseMenuManager : MonoBehaviour
         {
             pauseMenuUI.SetActive(true);
         }
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; 
         GameIsPaused = true;
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        if (depthOfField != null)
-        {
-            // POPRAWKA TUTAJ:
-            depthOfField.active = true;
-            // POPRAWKA TUTAJ (w logu):
-            Debug.Log("PauseMenuManager: Depth of Field Activated. Active state: " + depthOfField.active);
-        }
-        else
-        {
-            Debug.LogWarning("PauseMenuManager: Cannot activate Depth of Field, effect reference is null or not found.");
-        }
+        Debug.Log("PauseMenuManager: Gra spauzowana.");
     }
 
     public void LoadMenu()
     {
         Debug.Log("PauseMenuManager: £adowanie menu g³ównego: " + mainMenuSceneName);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
+        Time.timeScale = 1f; 
+        GameIsPaused = false; 
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
@@ -148,6 +98,7 @@ public class PauseMenuManager : MonoBehaviour
         Application.Quit();
 
 #if UNITY_EDITOR
+        // Jeœli jesteœ w edytorze Unity, zatrzymaj odtwarzanie
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }

@@ -45,5 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 0}
-  postProcessVolume: {fileID: 0}
   mainMenuSceneName: MainMenuScene
