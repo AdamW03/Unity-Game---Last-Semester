@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     public LayerMask playerMask;
 
     [Header("Ustawienia Patrolowania")]
-    public float patrolSpeed = 3f;
+    public float patrolSpeed = 1.5f;
     public float randomWalkPointRange = 10f;
     public float patrolAngularSpeed = 120f;
     public float patrolAcceleration = 8f;
@@ -31,8 +31,8 @@ public class EnemyAI : MonoBehaviour
     public float patrolBiasConeAngle = 90f;
 
     [Header("Ustawienia Gonienia i Badania LKP")]
-    public float chaseSpeed = 7f;
-    public float chaseAcceleration = 50f;
+    public float chaseSpeed = 5f;
+    public float chaseAcceleration = 40f;
     [Tooltip("Jak d³ugo (w sekundach) AI ma kontynuowaæ ruch w kierunku gracza (nawet przez œciany) po dotarciu do LKP.")]
     public float anticipationDuration = 2.0f;
 
@@ -73,12 +73,21 @@ public class EnemyAI : MonoBehaviour
         InvestigatingLKP       
     }
 
+    #region Animacja
+
+    private Animator animator;
+
+    #endregion
+
     #endregion
 
     #region Metody MonoBehaviour (Awake, Update, LateUpdate)
 
     void Awake()
     {
+
+        animator = GetComponent<Animator>();
+
         agent = GetComponent<NavMeshAgent>();
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -113,7 +122,7 @@ public class EnemyAI : MonoBehaviour
                 if (canSeePlayer) TransitionToState(AIState.Chasing);
                 break;
             case AIState.Observing:
-                HandleObserving();
+                HandleObserving();                
                 if (canSeePlayer) TransitionToState(AIState.Chasing);
                 break;
             case AIState.Chasing:
@@ -357,6 +366,40 @@ public class EnemyAI : MonoBehaviour
         AIState previousState = currentState;
         currentState = newState;
 
+        // --- ZARZ¥DZANIE PARAMETRAMI ANIMATORA ---
+        if (animator != null)
+        {
+            // Najpierw zresetuj wszystkie flagi
+            animator.SetBool("isPatrolling", false);
+            animator.SetBool("isObserving", false);
+            animator.SetBool("isChasing", false);
+            animator.SetBool("isInvestigating", false); // Upewnij siê, ¿e nazwa parametru jest poprawna
+
+            // Nastêpnie ustaw flagê dla nowego stanu
+            switch (newState)
+            {
+                case AIState.Patrolling:
+                    animator.SetBool("isPatrolling", true);
+                    break;
+                case AIState.Observing:
+                    animator.SetBool("isObserving", true);
+                    break;
+                case AIState.Chasing:
+                    animator.SetBool("isChasing", true);
+                    break;
+                case AIState.InvestigatingLKP:
+                    // Jeœli chcesz, aby InvestigatingLKP u¿ywa³o animacji biegania,
+                    // mo¿esz ustawiæ isChasing na true lub stworzyæ dedykowan¹ animacjê/parametr.
+                    // Na razie zak³adam, ¿e masz parametr "isInvestigating" i chcesz go u¿yæ.
+                    // Jeœli ma to byæ animacja biegania, u¿yj: animator.SetBool("isChasing", true);
+                    animator.SetBool("isInvestigating", true); // LUB animator.SetBool("isChasing", true);
+                    break;
+            }
+        }
+        // --- KONIEC ZARZ¥DZANIA PARAMETRAMI ANIMATORA ---
+
+
+        // Logika specyficzna dla przejœcia stanu AI (bez zmian)
         switch (newState)
         {
             case AIState.Patrolling:
