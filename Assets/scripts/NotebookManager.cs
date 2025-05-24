@@ -108,7 +108,7 @@ public class NotebookManager : MonoBehaviour
             if (!hasCollectedNotebookItem)
             {
                 // Jeœli nie, poka¿ komunikat i przerwij dalsze dzia³anie dla tego klawisza
-                ShowFeedbackMessage("Musisz najpierw znaleŸæ Notatnik!");
+                ShowFeedbackMessage("You have to find Notebook first!");
                 return;
             }
 
@@ -117,7 +117,7 @@ public class NotebookManager : MonoBehaviour
             if (collectedNotes.Count == 0)
             {
                 // Jeœli ma Notatnik, ale jest pusty, poka¿ odpowiedni komunikat
-                ShowFeedbackMessage("Notatnik jest pusty. ZnajdŸ jakieœ notatki!");
+                ShowFeedbackMessage("Notebook is empty. Find some notes!");
                 // Nie otwieramy pustego UI
             }
             else
@@ -153,15 +153,15 @@ public class NotebookManager : MonoBehaviour
         // Ustaw flagê tylko jeœli jeszcze nie zosta³a ustawiona
         if (!hasCollectedNotebookItem)
         {
-            Debug.Log("Podniesiono przedmiot Notatnik!");
+            Debug.Log("Picked up notebook!");
             hasCollectedNotebookItem = true; // Ustaw flagê posiadania
             // Poinformuj gracza
-            ShowFeedbackMessage("Zebra³eœ Notatnik! Mo¿esz teraz przegl¹daæ notatki [N].");
+            ShowFeedbackMessage("Picked up notebook! Browse your notes [N].");
         }
         else
         {
             // Opcjonalnie: obs³u¿ próbê ponownego podniesienia
-            Debug.LogWarning("Próbowano ponownie zebraæ przedmiot Notatnik.");
+            Debug.LogWarning("You already have equiped notebook.");
             // Mo¿na pokazaæ komunikat "Ju¿ masz Notatnik"
             // ShowFeedbackMessage("Ju¿ masz Notatnik.");
         }
@@ -173,21 +173,21 @@ public class NotebookManager : MonoBehaviour
         // Sprawdzenie, czy przekazano prawid³owe dane
         if (noteToAdd == null)
         {
-            Debug.LogError("Próbowano dodaæ null jako NoteData do notatnika!");
+            Debug.LogError("Attempting to add null no notebook!");
             return;
         }
 
         // Opcjonalnie: Sprawdzenie, czy notatka o tym samym numerze strony ju¿ istnieje
         if (collectedNotes.Any(note => note.pageNumber == noteToAdd.pageNumber))
         {
-            Debug.LogWarning($"Notatka ze stron¹ {noteToAdd.pageNumber} ('{noteToAdd.noteTitle}') ju¿ istnieje w notatniku. Pomijanie.");
+            Debug.LogWarning($"Note with page {noteToAdd.pageNumber} ('{noteToAdd.noteTitle}') already exists in notebook.");
             // Mo¿na poinformowaæ gracza
             // ShowFeedbackMessage($"Masz ju¿ notatkê ze strony {noteToAdd.pageNumber}.");
             return; // Nie dodawaj duplikatu strony
         }
 
         // Dodaj notatkê do listy
-        Debug.Log($"Dodano notatkê: Strona {noteToAdd.pageNumber} - {noteToAdd.noteTitle}");
+        Debug.Log($"Added note: Page {noteToAdd.pageNumber} - {noteToAdd.noteTitle}");
         collectedNotes.Add(noteToAdd);
 
         // --- WA¯NE: Sortuj listê notatek po numerze strony ---
@@ -196,7 +196,7 @@ public class NotebookManager : MonoBehaviour
         // -----------------------------------------------------
 
         // Poinformuj gracza o dodaniu notatki
-        ShowFeedbackMessage($"Dodano notatkê: Strona {noteToAdd.pageNumber}");
+        ShowFeedbackMessage($"Added note: Page {noteToAdd.pageNumber}");
 
         // Jeœli notatnik jest akurat otwarty, odœwie¿ jego widok
         if (isNotebookOpen)
@@ -225,13 +225,13 @@ public class NotebookManager : MonoBehaviour
             UpdateNotebookUI(); // Zaktualizuj treœæ i numer strony
             // Opcjonalnie: Mo¿na tu zatrzymaæ czas gry
             // Time.timeScale = 0f;
-            Debug.Log("Otwarto UI Notatnika.");
+            Debug.Log("Note UI opened.");
         }
         else // Jeœli w³aœnie zamknêliœmy panel
         {
             // Opcjonalnie: Mo¿na tu wznowiæ czas gry
             // Time.timeScale = 1f;
-            Debug.Log("Zamkniêto UI Notatnika.");
+            Debug.Log("Note UI closed.");
         }
     }
 
@@ -268,7 +268,7 @@ public class NotebookManager : MonoBehaviour
             // poka¿ stan b³êdu/pusty.
             if (isNotebookOpen)
             {
-                noteContentText.text = "Brak notatek do wyœwietlenia."; // Lub pusty string ""
+                noteContentText.text = "No notes to display."; // Lub pusty string ""
                 pageNumberText.text = "";
             }
             return; // Nie rób nic wiêcej
@@ -277,7 +277,7 @@ public class NotebookManager : MonoBehaviour
         // SprawdŸ poprawnoœæ indeksu (dodatkowe zabezpieczenie)
         if (currentPageIndex < 0 || currentPageIndex >= collectedNotes.Count)
         {
-            Debug.LogError($"Nieprawid³owy indeks strony notatki: {currentPageIndex}. Liczba notatek: {collectedNotes.Count}. Resetowanie do 0.");
+            Debug.LogError($"Invalid page index: {currentPageIndex}. Note count: {collectedNotes.Count}. Reset to 0.");
             currentPageIndex = 0; // Spróbuj zresetowaæ do pierwszej strony
                                   // Jeœli po resecie nadal nie ma notatek (skrajny przypadek), wyjdŸ
             if (collectedNotes.Count == 0) return;
@@ -292,14 +292,14 @@ public class NotebookManager : MonoBehaviour
             // Ustaw treœæ notatki
             noteContentText.text = currentNote.noteContent;
             // Ustaw numeracjê stron (np. "Notatka 3/10 (Strona 15)")
-            pageNumberText.text = $"Notatka {currentPageIndex + 1}/{collectedNotes.Count} (Strona {currentNote.pageNumber})";
+            pageNumberText.text = $"Page {currentPageIndex + 1}/{collectedNotes.Count} (Page {currentNote.pageNumber})";
         }
         else
         {
             // Obs³uga b³êdu, jeœli element na liœcie jest null (nie powinno siê zdarzyæ)
-            Debug.LogError($"Znaleziono null na indeksie {currentPageIndex} w liœcie collectedNotes!");
-            noteContentText.text = "B³¹d ³adowania treœci notatki.";
-            pageNumberText.text = "B³¹d";
+            Debug.LogError($"Found null at index {currentPageIndex} in list collectedNotes!");
+            noteContentText.text = "Error while loading note content.";
+            pageNumberText.text = "Error";
         }
     }
 
@@ -309,7 +309,7 @@ public class NotebookManager : MonoBehaviour
         // SprawdŸ, czy referencja do UI komunikatu jest ustawiona
         if (feedbackMessageText == null)
         {
-            Debug.Log($"Komunikat (UI nieprzypisane): {message}"); // Wypisz w konsoli, jeœli UI brakuje
+            Debug.Log($"Comunicate (UI unassigned): {message}"); // Wypisz w konsoli, jeœli UI brakuje
             return;
         }
 
@@ -348,17 +348,17 @@ public class NotebookManager : MonoBehaviour
         bool ok = true;
         if (notebookPanel == null)
         {
-            Debug.LogError("NotebookManager: 'Notebook Panel' nie jest przypisany!", this);
+            Debug.LogError("NotebookManager: 'Notebook Panel' is not assigned!", this);
             ok = false;
         }
         if (noteContentText == null)
         {
-            Debug.LogError("NotebookManager: 'Note Content Text' nie jest przypisany!", this);
+            Debug.LogError("NotebookManager: 'Note Content Text' is not assigned!", this);
             ok = false;
         }
         if (pageNumberText == null)
         {
-            Debug.LogError("NotebookManager: 'Page Number Text' nie jest przypisany!", this);
+            Debug.LogError("NotebookManager: 'Page Number Text' is not assigned!", this);
             ok = false;
         }
         // feedbackMessageText jest opcjonalny, wiêc nie sprawdzamy go tutaj jako krytycznego
