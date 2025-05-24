@@ -2,11 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class OptionMenuController : MonoBehaviour
 {
     public TMP_Dropdown ResDropDown;
     public Toggle FullScreenToggle;
+    public Button backButton; // <-- ADDED THIS VARIABLE
 
     Resolution[] allResolutions;
     bool isFullScreen;
@@ -14,22 +16,26 @@ public class OptionMenuController : MonoBehaviour
 
     void Start()
     {
-        isFullScreen = true;
+        isFullScreen = Screen.fullScreen;
+        FullScreenToggle.isOn = isFullScreen;
+
         allResolutions = Screen.resolutions;
 
         List<string> resolutionOptions = new List<string>();
         selectedResolutionIndex = 0;
 
-        // Populate dropdown with available resolutions
         for (int i = 0; i < allResolutions.Length; i++)
         {
-            string option = allResolutions[i].width + " x " + allResolutions[i].height + " @ " + allResolutions[i].refreshRate + "Hz";
+            string option = allResolutions[i].width + " x " + allResolutions[i].height;
+            if (allResolutions[i].refreshRate > 0)
+            {
+                option += " @ " + allResolutions[i].refreshRate + "Hz";
+            }
             resolutionOptions.Add(option);
 
-            // Set the currently active resolution index
-            if (allResolutions[i].width == Screen.currentResolution.width &&
-                allResolutions[i].height == Screen.currentResolution.height &&
-                allResolutions[i].refreshRate == Screen.currentResolution.refreshRate)
+            bool isCurrent = allResolutions[i].width == Screen.currentResolution.width &&
+                             allResolutions[i].height == Screen.currentResolution.height;
+            if (isCurrent)
             {
                 selectedResolutionIndex = i;
             }
@@ -37,16 +43,26 @@ public class OptionMenuController : MonoBehaviour
 
         ResDropDown.ClearOptions();
         ResDropDown.AddOptions(resolutionOptions);
+
         ResDropDown.value = selectedResolutionIndex;
         ResDropDown.RefreshShownValue();
 
-        // Listen for dropdown and toggle changes
-        ResDropDown.onValueChanged.AddListener(SetResolution);
-        FullScreenToggle.isOn = isFullScreen;
         FullScreenToggle.onValueChanged.AddListener(SetFullScreen);
+        ResDropDown.onValueChanged.AddListener(SetResolution);
+
+        // <-- ADDED THIS LISTENER
+        if (backButton != null) // Optional: Check if button is assigned to prevent errors
+        {
+            backButton.onClick.AddListener(Back);
+            Debug.Log("Back button listener added.");
+        }
+        else
+        {
+            Debug.LogWarning("Back button is not assigned in the Inspector.");
+        }
+        // -->
     }
 
-    // Called when resolution dropdown is changed
     public void SetResolution(int resolutionIndex)
     {
         Resolution res = allResolutions[resolutionIndex];
@@ -55,12 +71,17 @@ public class OptionMenuController : MonoBehaviour
         Debug.Log($"Resolution changed to: {res.width}x{res.height} @ {res.refreshRate}Hz");
     }
 
-    // Called when fullscreen toggle is changed
-    public void SetFullScreen(bool isFullscreen)
+    public void SetFullScreen(bool isFullscreenValue)
     {
-        isFullScreen = isFullscreen;
+        isFullScreen = isFullscreenValue;
         Resolution res = allResolutions[selectedResolutionIndex];
         Screen.SetResolution(res.width, res.height, isFullScreen, res.refreshRate);
         Debug.Log("Fullscreen set to: " + isFullScreen);
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene("menu");
+        Debug.Log("Returning to menu scene...");
     }
 }

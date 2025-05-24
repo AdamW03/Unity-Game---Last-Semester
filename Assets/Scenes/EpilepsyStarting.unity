@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1446105893}
-  fadeDuration: 1.5
+  fadeDuration: 5
   waitTime: 5
 --- !u!4 &843952624
 Transform:
