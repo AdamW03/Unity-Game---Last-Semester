@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     public LayerMask playerMask;
 
     [Header("Ustawienia Patrolowania")]
-    public float patrolSpeed = 1.5f;
+    public float patrolSpeed = 1f;
     public float randomWalkPointRange = 10f;
     public float patrolAngularSpeed = 120f;
     public float patrolAcceleration = 8f;
@@ -31,7 +31,7 @@ public class EnemyAI : MonoBehaviour
     public float patrolBiasConeAngle = 90f;
 
     [Header("Ustawienia Gonienia i Badania LKP")]
-    public float chaseSpeed = 5f;
+    public float chaseSpeed = 4f;
     public float chaseAcceleration = 40f;
     [Tooltip("Jak d³ugo (w sekundach) AI ma kontynuowaæ ruch w kierunku gracza (nawet przez œciany) po dotarciu do LKP.")]
     public float anticipationDuration = 2.0f;
