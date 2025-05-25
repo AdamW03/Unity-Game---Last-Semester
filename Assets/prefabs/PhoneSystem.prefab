@@ -51,10 +51,9 @@ MonoBehaviour:
   currentBattery: 92
   batteryDrainRate: 1
   turnOffOnEmpty: 1
-  audioSource: {fileID: 0}
-  lightOnSound: {fileID: 0}
-  lightOffSound: {fileID: 0}
-  batteryDeadSound: {fileID: 0}
+  lightOnSound: {fileID: 8300000, guid: efd09d49d5ae3a942993d47e9ecdeccf, type: 3}
+  lightOffSound: {fileID: 8300000, guid: efd09d49d5ae3a942993d47e9ecdeccf, type: 3}
+  batteryDeadSound: {fileID: 8300000, guid: 79de37364f162ca4ba9909ba97d5128e, type: 3}
   isLightOn: 0
   isSelected: 0
   onBatteryChanged:
