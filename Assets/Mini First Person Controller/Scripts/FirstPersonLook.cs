@@ -10,10 +10,11 @@ public class FirstPersonLook : MonoBehaviour
     Vector2 velocity;
     Vector2 frameVelocity;
 
+    [Header("Look Control")] // NOWA SEKCJA
+    public bool canLook = true; // Flaga do kontrolowania rozglądania się
+
     void Reset()
     {
-        // Get the character from the FirstPersonMovement in parents.
-        // Upewnij się, że ten komponent istnieje, inaczej będzie błąd przy pierwszym dodaniu skryptu
         FirstPersonMovement fpm = GetComponentInParent<FirstPersonMovement>();
         if (fpm != null)
         {
@@ -21,44 +22,64 @@ public class FirstPersonLook : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("FirstPersonMovement nie znaleziony w rodzicu. Przypisz 'character' ręcznie w Inspektorze.", this);
+            // Jeśli skrypt jest na kamerze, która jest dzieckiem gracza,
+            // a gracz nie ma FirstPersonMovement, spróbuj wziąć transform rodzica.
+            if (transform.parent != null)
+            {
+                character = transform.parent;
+                Debug.LogWarning("FirstPersonMovement nie znaleziony w rodzicu. Ustawiono 'character' na transform rodzica. Sprawdź, czy to poprawne.", this);
+            }
+            else
+            {
+                Debug.LogWarning("FirstPersonMovement nie znaleziony w rodzicu, a obiekt nie ma rodzica. Przypisz 'character' ręcznie w Inspektorze.", this);
+            }
         }
     }
 
     void Start()
     {
-        // Lock the mouse cursor to the game screen.
-        // Ta linia jest teraz zarządzana przez PauseMenuManager,
-        // ale pozostawienie jej tutaj nie zaszkodzi, PauseMenuManager nadpisze to ustawienie.
-        // Możesz ją zakomentować lub usunąć, jeśli chcesz mieć czystszy kod.
-        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.lockState = CursorLockMode.Locked; // Zarządzane przez PauseMenuManager lub inne skrypty
     }
 
     void Update()
     {
-        // --- POCZĄTEK MODYFIKACJI ---
-        // Sprawdź, czy gra jest spauzowana. Jeśli tak, nie przetwarzaj ruchu myszy dla kamery.
-        // Upewnij się, że masz skrypt PauseMenuManager w scenie i że ma on publiczną statyczną zmienną GameIsPaused.
-        if (PauseMenuManager.GameIsPaused)
+        // Jeśli rozglądanie jest zablokowane przez intro, wyjdź
+        if (!canLook)
         {
-            return; // Wyjdź z metody Update, nic więcej nie rób
+            return;
         }
-        // --- KONIEC MODYFIKACJI ---
 
-        // Get smooth velocity.
+        // Sprawdź, czy gra jest spauzowana (zakładając, że PauseMenuManager istnieje i działa)
+        // Upewnij się, że masz skrypt PauseMenuManager w scenie i że ma on publiczną statyczną zmienną GameIsPaused.
+        // Jeśli nie używasz PauseMenuManager lub ta zmienna nie istnieje, zakomentuj/usuń ten blok.
+        if (PauseMenuManager.GameIsPaused) // Ta linia wymaga istnienia PauseMenuManager.GameIsPaused
+        {
+            // Jeśli kursor nie jest zablokowany (np. menu pauzy jest widoczne), nie obracaj kamery
+            if (Cursor.lockState != CursorLockMode.Locked)
+            {
+                return;
+            }
+        }
+
+
         Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
         Vector2 rawFrameVelocity = Vector2.Scale(mouseDelta, Vector2.one * sensitivity);
         frameVelocity = Vector2.Lerp(frameVelocity, rawFrameVelocity, 1 / smoothing);
         velocity += frameVelocity;
         velocity.y = Mathf.Clamp(velocity.y, -90, 90);
 
-        // Rotate camera up-down and controller left-right from velocity.
         transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
 
-        // Upewnij się, że 'character' jest przypisany, aby uniknąć NullReferenceException
         if (character != null)
         {
             character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
         }
+    }
+
+    // NOWA METODA do włączania/wyłączania rozglądania się z zewnątrz
+    public void SetLookEnabled(bool isEnabled)
+    {
+        canLook = isEnabled;
+        Debug.Log($"FirstPersonLook: SetLookEnabled called. canLook is now {canLook}");
     }
 }
