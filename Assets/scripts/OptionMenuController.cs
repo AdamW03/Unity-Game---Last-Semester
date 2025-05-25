@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class OptionMenuController : MonoBehaviour
 {
@@ -83,5 +84,9 @@ public class OptionMenuController : MonoBehaviour
     {
         SceneManager.LoadScene("menu");
         Debug.Log("Returning to menu scene...");
+    }
+    public void BackToPauseMenu()
+    {
+
     }
 }

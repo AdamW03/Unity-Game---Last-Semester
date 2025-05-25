@@ -39,9 +39,13 @@ public class CarouselInventory : MonoBehaviour
     [SerializeField] private KeyCode nextItemKey = KeyCode.E;
     [SerializeField] private KeyCode previousItemKey = KeyCode.Q;
 
-    [Header("Audio")] // <-- NOWA SEKCJA
+    [Header("Audio")]
     [Tooltip("DŸwiêk odtwarzany przy przewijaniu przedmiotów w ekwipunku.")]
-    [SerializeField] private AudioClip itemScrollSoundClip; // <-- NOWE POLE NA DWIÊK PRZEWIJANIA
+    [SerializeField] private AudioClip itemScrollSoundClip;
+    [Tooltip("DŸwiêk odtwarzany przy otwieraniu ekwipunku.")]
+    [SerializeField] private AudioClip inventoryOpenSoundClip; // <-- NOWE POLE
+    [Tooltip("DŸwiêk odtwarzany przy zamykaniu ekwipunku.")]
+    [SerializeField] private AudioClip inventoryCloseSoundClip; // <-- NOWE POLE
 
     [Header("Visual Settings")]
     [SerializeField] private float sideItemScale = 0.7f;
@@ -69,7 +73,16 @@ public class CarouselInventory : MonoBehaviour
         {
             isInventoryOpen = !isInventoryOpen;
             UpdateUI();
-            // Mo¿esz dodaæ dŸwiêk otwierania/zamykania ekwipunku tutaj, jeœli chcesz
+
+            // Odtwórz dŸwiêk otwierania lub zamykania
+            if (isInventoryOpen)
+            {
+                PlaySound(inventoryOpenSoundClip, "otwierania ekwipunku (inventoryOpenSoundClip)");
+            }
+            else
+            {
+                PlaySound(inventoryCloseSoundClip, "zamykania ekwipunku (inventoryCloseSoundClip)");
+            }
         }
 
         if (isInventoryOpen && items.Count > 1)
@@ -88,32 +101,30 @@ public class CarouselInventory : MonoBehaviour
 
             if (indexChanged)
             {
-                PlayItemScrollSound(); // <-- ODTWÓRZ DWIÊK
+                PlaySound(itemScrollSoundClip, "przewijania przedmiotów (itemScrollSoundClip)");
                 UpdateUI();
             }
         }
     }
 
-    // --- NOWA METODA DO ODTWARZANIA DWIÊKU PRZEWIJANIA ---
-    private void PlayItemScrollSound()
+    // Zmodyfikowana metoda do odtwarzania dŸwiêków, aby by³a bardziej generyczna
+    private void PlaySound(AudioClip clipToPlay, string soundDescriptionForLog)
     {
-        if (SoundFXManager.Instance != null && itemScrollSoundClip != null)
+        if (SoundFXManager.Instance != null && clipToPlay != null)
         {
-            // Odtwarzamy dŸwiêk w pozycji kamery gracza (lub innej odpowiedniej)
-            // Dla prostoty, u¿yjemy transform.position tego obiektu CarouselInventory.
-            SoundFXManager.Instance.PlaySoundFXClip(itemScrollSoundClip, transform, 1f);
+            SoundFXManager.Instance.PlaySoundFXClip(clipToPlay, transform, 1f);
         }
-        else if (itemScrollSoundClip == null)
+        else if (clipToPlay == null)
         {
             // Ten log mo¿e byæ zbyt czêsty, jeœli nie przypiszesz dŸwiêku, wiêc mo¿na go zakomentowaæ
-            // Debug.LogWarning("CarouselInventory: Brak przypisanego dŸwiêku przewijania przedmiotów (itemScrollSoundClip).");
+            // Debug.LogWarning($"CarouselInventory: Brak przypisanego dŸwiêku {soundDescriptionForLog}.");
         }
         else if (SoundFXManager.Instance == null)
         {
-            Debug.LogWarning("CarouselInventory: SoundFXManager.Instance nie znaleziony. Nie mo¿na odtworzyæ dŸwiêku przewijania.");
+            Debug.LogWarning($"CarouselInventory: SoundFXManager.Instance nie znaleziony. Nie mo¿na odtworzyæ dŸwiêku {soundDescriptionForLog}.");
         }
     }
-    // ---------------------------------------------------------
+
 
     public void AddItem(InventoryItem itemToAdd)
     {

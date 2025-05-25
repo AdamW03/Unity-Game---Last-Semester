@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2801130188573763400}
   - component: {fileID: 7524969065127157037}
-  - component: {fileID: 8997834339440024998}
   - component: {fileID: 5442792192239492866}
+  - component: {fileID: 8691531826931569016}
   m_Layer: 0
   m_Name: PauseMenuManager
   m_TagString: Untagged
@@ -60,21 +60,6 @@ MonoBehaviour:
   defaultFOV: 75
   buttonClickSoundClip: {fileID: 8300000, guid: e45ec250dd817934e819f7e0bd6336ee, type: 3}
   mainMenuSceneName: menu
---- !u!114 &8997834339440024998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7303099709315318922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d794fffd56d4ac843a03619cdfc6f1e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ResDropDown: {fileID: 0}
-  FullScreenToggle: {fileID: 0}
-  backButton: {fileID: 0}
 --- !u!114 &5442792192239492866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,3 +91,19 @@ MonoBehaviour:
   scrollbarHandleHighlightedColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
   scrollbarHandlePressedColor: {r: 0.4, g: 0.4, b: 0.4, a: 1}
   scrollbarHandleDisabledColor: {r: 0.9, g: 0.9, b: 0.9, a: 0.5}
+--- !u!114 &8691531826931569016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303099709315318922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3088683298660dc41a16e98207d70dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResDropDown: {fileID: 0}
+  FullScreenToggle: {fileID: 0}
+  backButton: {fileID: 0}
+  pauseMenuManager: {fileID: 7524969065127157037}

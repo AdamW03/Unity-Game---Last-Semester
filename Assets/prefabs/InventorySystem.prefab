@@ -55,6 +55,8 @@ MonoBehaviour:
   nextItemKey: 101
   previousItemKey: 113
   itemScrollSoundClip: {fileID: 8300000, guid: 0cbdf59d56260b74793e67001c687887, type: 3}
+  inventoryOpenSoundClip: {fileID: 8300000, guid: 5327f69a08db4f245be9fb0def2a51df, type: 3}
+  inventoryCloseSoundClip: {fileID: 8300000, guid: 6b752b4f2c4c03542bfe0e13e2be7ddc, type: 3}
   sideItemScale: 0.7
   sideItemColor: {r: 1, g: 1, b: 1, a: 0.6}
   centerItemColor: {r: 1, g: 1, b: 1, a: 1}
