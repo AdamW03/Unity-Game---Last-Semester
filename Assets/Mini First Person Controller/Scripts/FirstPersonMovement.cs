@@ -15,7 +15,7 @@ public class FirstPersonMovement : MonoBehaviour
     public KeyCode runningKey = KeyCode.LeftShift;
 
     [Header("Custom Gravity")]
-    public float gravityMultiplier = 2.5f;
+    public float gravityMultiplier = 2f;
 
     [Header("Movement Control")] // NOWA SEKCJA
     public bool canMove = true;  // Flaga do kontrolowania ruchu
