@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 692ca7415480b124faf2c6e8fd06610c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/prefabs/mrs_tee.prefab
+  uploadId: 5782

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ea8e9a98a946ddc4cb163a7f19abee1e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/prefabs/mrs_angle.prefab
+  uploadId: 5782

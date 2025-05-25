@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7694383155010211424
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 25.39423
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -22.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -38.413296
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+      propertyPath: m_Name
+      value: Stairs-entrance-Kostylyova-46-v1-001-sketchfab
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 5233112405309087440, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    - {fileID: -3756473180518285571, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    - {fileID: 6014503084441653313, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    - {fileID: 2800250516343163423, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    - {fileID: -8380157826906577798, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    - {fileID: 8700725330082129686, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    - {fileID: -2181743766629440291, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    - {fileID: 5252682845850649624, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 063bd2a3a18459c47bde721bdf225ff4, type: 3}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 064e9ec120398f04e93be9bc0954744c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/materials/mrs_paintedMetal.mat
+  uploadId: 5782

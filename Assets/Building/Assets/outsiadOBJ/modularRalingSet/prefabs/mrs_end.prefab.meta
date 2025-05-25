@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 45616c24861cd1d4c9aa39173a546586
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/prefabs/mrs_end.prefab
+  uploadId: 5782

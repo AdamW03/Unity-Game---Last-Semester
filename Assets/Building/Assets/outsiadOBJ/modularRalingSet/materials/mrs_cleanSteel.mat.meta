@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fbdd438efbda2f64797d0c583af6e98a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/materials/mrs_cleanSteel.mat
+  uploadId: 5782

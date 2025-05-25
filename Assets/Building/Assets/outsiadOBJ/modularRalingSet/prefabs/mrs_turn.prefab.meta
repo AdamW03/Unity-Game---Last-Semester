@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ea0279521babf794898716ee8078af7c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/prefabs/mrs_turn.prefab
+  uploadId: 5782

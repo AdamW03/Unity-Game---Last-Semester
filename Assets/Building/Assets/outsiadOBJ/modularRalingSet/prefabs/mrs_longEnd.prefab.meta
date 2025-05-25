@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 914531e69a191614ea1cb7c4847220b1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/prefabs/mrs_longEnd.prefab
+  uploadId: 5782

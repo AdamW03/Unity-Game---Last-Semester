@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a0262b66549b7b744936992aa1b500eb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 17090
+  packageName: Modular Railing Set
+  packageVersion: 1.0
+  assetPath: Assets/modularRalingSet/prefabs/mrs_turnInverse.prefab
+  uploadId: 5782
