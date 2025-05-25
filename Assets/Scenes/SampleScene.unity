@@ -428,15 +428,15 @@ PrefabInstance:
       objectReference: {fileID: 998623930}
     - target: {fileID: 4951696737051815484, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.2684927
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4951696737051815484, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4951696737051815484, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.8180447
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4951696737051815484, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7228,6 +7228,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1726926270928557328, guid: a45b50f65f88b6e4a8812222bfbcaacd, type: 3}
+      propertyPath: groundLayerMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 2194136978096757376, guid: a45b50f65f88b6e4a8812222bfbcaacd, type: 3}
       propertyPath: 'patrolWaypoints.Array.data[0]'
       value: 
