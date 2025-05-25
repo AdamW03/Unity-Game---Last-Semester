@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/EpilepsyStarting.unity
+    guid: 8ff45aecde3c5a54690f39d0b712d084
+  - enabled: 1
+    path: Assets/Scenes/menu.unity
+    guid: d8280b3427d239443b205997825934a7
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/options.unity
+    guid: 7b2d6e967ca2a3449af3b1114d97fe07
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

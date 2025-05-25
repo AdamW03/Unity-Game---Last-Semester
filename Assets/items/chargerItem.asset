@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f829487065a12944592bea839b8d7684, type: 3}
   m_Name: chargerItem
   m_EditorClassIdentifier: 
-  itemName: "\u0142adowarka"
+  itemName: Charger
   icon: {fileID: 21300000, guid: 5716f57eac574b64d93025f119f151d3, type: 3}
