@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f829487065a12944592bea839b8d7684, type: 3}
   m_Name: Key_SK4
   m_EditorClassIdentifier: 
-  itemName: Key
-  icon: {fileID: 21300000, guid: eab9f37f949c31948aebca461b161b26, type: 3}
+  itemName: Key to Computer Lab 4
+  icon: {fileID: 21300000, guid: 58749f161a9d2904a9793a69f9835492, type: 3}
