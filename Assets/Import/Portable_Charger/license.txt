@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portable Charger
+* source:	https://sketchfab.com/3d-models/portable-charger-b7fc1a0673544e41be1280e80968b15a
+* author:	AlvinPortfolio (https://sketchfab.com/AlvinPortfolio)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portable Charger" (https://sketchfab.com/3d-models/portable-charger-b7fc1a0673544e41be1280e80968b15a) by AlvinPortfolio (https://sketchfab.com/AlvinPortfolio) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

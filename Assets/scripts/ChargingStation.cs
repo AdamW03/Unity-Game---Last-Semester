@@ -15,6 +15,8 @@ public class ChargingStation : MonoBehaviour
     public GameObject phoneModelVisual;
     [Tooltip("GameObject - charger model.")]
     public GameObject chargerModelVisual;
+    [Tooltip("GameObject - charger model.")]
+    public GameObject cabelModelVisual;
     private Interactable interactable;
 
     [Header("Charging Settings")]
@@ -194,6 +196,10 @@ public class ChargingStation : MonoBehaviour
         if (chargerModelVisual != null)
         {
             chargerModelVisual.SetActive(isCharging);
+        }
+        if (cabelModelVisual != null)
+        {
+            cabelModelVisual.SetActive(isCharging);
         }
     }
 
