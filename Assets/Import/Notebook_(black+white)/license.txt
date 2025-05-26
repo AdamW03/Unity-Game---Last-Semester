@@ -1,0 +1,11 @@
+Model Information:
+* title:	Notebook (black+white)
+* source:	https://sketchfab.com/3d-models/notebook-blackwhite-f3946ccc6d77475eb2e9b42e2f24ca8f
+* author:	KatzeSchwarz (https://sketchfab.com/katzeschwarz)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Notebook (black+white)" (https://sketchfab.com/3d-models/notebook-blackwhite-f3946ccc6d77475eb2e9b42e2f24ca8f) by KatzeSchwarz (https://sketchfab.com/katzeschwarz) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
