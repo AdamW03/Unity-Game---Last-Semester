@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Interactable : MonoBehaviour
 {
@@ -86,5 +87,9 @@ public class Interactable : MonoBehaviour
         {
             Debug.LogWarning($"Próbowano podnieœæ {gameObject.name} jako notatkê, ale nie ma przypisanych danych (Note Data)!");
         }
+    }
+    public void ChangeToNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);       
     }
 }
