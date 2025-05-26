@@ -591,6 +591,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5684469446155757098, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 6660899679069633701, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_Color.b
       value: 0.07450981
@@ -1965,6 +1969,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 99763105678965368, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 99763105678965368, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 99763105678965368, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 101255520307082599, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -2147,7 +2163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 185820484568659684, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 186031088759985679, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -2231,7 +2247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 212993187458404183, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 214661802725934699, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -2275,7 +2291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 219088639591983552, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 219573378281205290, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -2336,6 +2352,18 @@ PrefabInstance:
     - target: {fileID: 263353057710446986, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 272467574487035162, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 272467574487035162, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 272467574487035162, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 273205464752492778, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -3031,7 +3059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 535667274885685696, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 536833848778125582, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -3908,6 +3936,18 @@ PrefabInstance:
     - target: {fileID: 853701963709090853, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 853808711617175460, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 853808711617175460, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 853808711617175460, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 855197842584993876, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -5447,7 +5487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1463866171425496425, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used...
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1464964782247444342, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -6145,6 +6185,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1780929614756172886, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1780929614756172886, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1780929614756172886, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1782637736307586971, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -6559,7 +6611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1929325101042894933, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1929822644134410652, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -6663,7 +6715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1962466702413459265, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1962628915137247852, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -7284,6 +7336,18 @@ PrefabInstance:
     - target: {fileID: 2166542439218472841, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168096270233977172, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168096270233977172, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168096270233977172, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2171745786557638222, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -7927,7 +7991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2319679789824353499, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2319749063107033089, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -8308,6 +8372,18 @@ PrefabInstance:
     - target: {fileID: 2462038188378720712, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463551370815492977, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463551370815492977, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2463551370815492977, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2466019945541582397, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -9801,6 +9877,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 3021028830159316681, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3021028830159316681, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3021028830159316681, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3021680966970217960, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -9936,6 +10024,18 @@ PrefabInstance:
     - target: {fileID: 3068559682226524400, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069096460228071727, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069096460228071727, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3069096460228071727, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3071069505767858821, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -10119,7 +10219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3168584092506027363, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3169831576170916907, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -10304,6 +10404,18 @@ PrefabInstance:
     - target: {fileID: 3247114123990010169, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249036033335909889, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249036033335909889, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3249036033335909889, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3255008508809961805, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -10496,6 +10608,18 @@ PrefabInstance:
     - target: {fileID: 3307327628478937243, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3308532807614776092, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3308532807614776092, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3308532807614776092, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3309064231657461993, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -11103,7 +11227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3502346864014043097, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3502842102144727259, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -11479,7 +11603,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3654559460280376019, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3656123414099389548, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -13319,7 +13443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4379746399059286433, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4384327108481155170, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -13543,7 +13667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4447308282753715028, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4447315296331226109, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -14253,6 +14377,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4713430302137364886, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713430302137364886, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713430302137364886, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4714118391908358636, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -14853,6 +14989,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4943667118110236728, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943667118110236728, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4943667118110236728, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4944509021267375528, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -15401,6 +15549,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5132508468293822861, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132508468293822861, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132508468293822861, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5134072575041497091, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -15428,6 +15588,18 @@ PrefabInstance:
     - target: {fileID: 5146856066578598721, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148822380160650103, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148822380160650103, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148822380160650103, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5150935055186218775, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -15520,6 +15692,18 @@ PrefabInstance:
     - target: {fileID: 5189582011287741197, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189827602978356678, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189827602978356678, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189827602978356678, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5193384250089407398, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -15707,7 +15891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5245320639277816227, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5246491290378242325, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -15728,6 +15912,18 @@ PrefabInstance:
     - target: {fileID: 5255768353583714146, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261800580665693711, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261800580665693711, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261800580665693711, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5263910714957028764, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -17465,6 +17661,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5892283590313270398, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892283590313270398, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5892283590313270398, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5892671071126787576, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -18171,7 +18379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6172122556255161090, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6172274112460347736, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -19107,7 +19315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6497088448756610121, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6498964858457200699, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -19428,6 +19636,18 @@ PrefabInstance:
     - target: {fileID: 6633547930031651302, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634567630084970119, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634567630084970119, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6634567630084970119, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6634972554310949778, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -20923,7 +21143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6985629614503395699, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6987866182960507144, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -21159,7 +21379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7073457192721135436, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7076126834926063821, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -21635,7 +21855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7301638318571191201, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used..
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7303487060770849795, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -23065,6 +23285,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7889934569855975902, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7889934569855975902, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7889934569855975902, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7890466313242692435, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -24475,7 +24707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8407755144522525042, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: promptAfterInteraction
-      value: Used...
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8408881544310746166, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -24856,6 +25088,18 @@ PrefabInstance:
     - target: {fileID: 8532038604845472541, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8532514479940442243, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8532514479940442243, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8532514479940442243, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8535220740450472822, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -25313,6 +25557,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8706888620074915707, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706888620074915707, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706888620074915707, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8708215099104832473, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -25504,6 +25760,18 @@ PrefabInstance:
     - target: {fileID: 8772116544489200730, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772637305923640260, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772637305923640260, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772637305923640260, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8773753812861648889, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -26040,6 +26308,18 @@ PrefabInstance:
     - target: {fileID: 8971861637357102945, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972135631399837562, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972135631399837562, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972135631399837562, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8972918209520557642, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
@@ -26628,6 +26908,18 @@ PrefabInstance:
     - target: {fileID: 9208708587646912220, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210689627766091279, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenOpen
+      value: '[F] Close'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210689627766091279, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptWhenClosed
+      value: '[F] Open'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210689627766091279, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
+      propertyPath: promptAfterInteraction
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9211709162096420899, guid: 337f2811b63bd7f478492344fd10071b, type: 3}
       propertyPath: m_Layer
