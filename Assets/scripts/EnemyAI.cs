@@ -24,7 +24,7 @@ public class EnemyAI : MonoBehaviour
     public float randomWalkPointRange = 10f;
     public float patrolAngularSpeed = 120f;
     public float patrolAcceleration = 8f;
-    public bool stopAndLookEnabled = true; 
+    public bool stopAndLookEnabled = true;
     public float observationDuration = 3.0f;
     public float observationAngularSpeed = 90f;
     [Range(10f, 360f)]
@@ -35,6 +35,19 @@ public class EnemyAI : MonoBehaviour
     public float chaseAcceleration = 40f;
     [Tooltip("Jak d³ugo (w sekundach) AI ma kontynuowaæ ruch w kierunku gracza (nawet przez œciany) po dotarciu do LKP.")]
     public float anticipationDuration = 2.0f;
+
+    // NOWE ZMIENNE DLA TELEPORTACJI WAYPOINTÓW
+    [Header("Waypoint Teleportation")]
+    public List<WaypointTeleportLink> teleportLinks = new List<WaypointTeleportLink>();
+
+    // NOWE ZMIENNE DLA WYKRYWANIA ZABLOKOWANIA
+    [Header("Bug Detection")]
+    [Tooltip("Po jakim czasie bez znacz¹cego ruchu AI zostanie zresetowane.")]
+    public float stuckTimeThreshold = 5.0f;
+    [Tooltip("Minimalna prêdkoœæ (jednostki/sekundê), poni¿ej której ruch uznawany jest za nieznacz¹cy.")]
+    public float stuckSpeedThreshold = 0.1f;
+    [Tooltip("Jak czêsto (w sekundach) sprawdzaæ, czy AI siê nie zablokowa³o.")]
+    public float stuckCheckInterval = 1.0f;
 
     #endregion
 
@@ -60,7 +73,25 @@ public class EnemyAI : MonoBehaviour
     private Vector3 lastKnownPlayerPosition;
     private float anticipationTimer;
     private bool reachedLKPInInvestigation;
-    private Vector3 investigationOriginPosition; 
+    private Vector3 investigationOriginPosition;
+
+    // NOWE ZMIENNE DLA WYKRYWANIA ZABLOKOWANIA
+    private float timeSinceLastStuckCheck = 0f;
+    private Vector3 lastPositionForStuckCheck;
+    private float currentStuckTimer = 0f;
+
+    #endregion
+
+    #region Struktury Pomocnicze
+
+    // NOWA STRUKTURA DLA LINKÓW TELEPORTACJI
+    [System.Serializable]
+    public struct WaypointTeleportLink
+    {
+        public Transform fromWaypoint;
+        public Transform toWaypoint;
+    }
+
     #endregion
 
     #region Stany AI
@@ -70,7 +101,7 @@ public class EnemyAI : MonoBehaviour
         Patrolling,
         Observing,
         Chasing,
-        InvestigatingLKP       
+        InvestigatingLKP
     }
 
     #region Animacja
@@ -85,9 +116,7 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
-
         animator = GetComponent<Animator>();
-
         agent = GetComponent<NavMeshAgent>();
 
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -98,7 +127,11 @@ public class EnemyAI : MonoBehaviour
 
         InitializePatrolMode();
         agent.updateRotation = true;
-        agent.stoppingDistance = 1.0f;
+        agent.stoppingDistance = 1.0f; // Upewnij siê, ¿e stoppingDistance jest rozs¹dne
+
+        // Inicjalizacja dla wykrywania zablokowania
+        lastPositionForStuckCheck = transform.position;
+
         TransitionToState(AIState.Patrolling);
     }
 
@@ -113,6 +146,63 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
+        // --- LOGIKA WYKRYWANIA ZABLOKOWANIA ---
+        bool isMovingState = currentState == AIState.Patrolling ||
+                             currentState == AIState.Chasing ||
+                             currentState == AIState.InvestigatingLKP;
+
+        if (agent.isOnNavMesh && isMovingState && !agent.isStopped)
+        {
+            timeSinceLastStuckCheck += Time.deltaTime;
+            if (timeSinceLastStuckCheck >= stuckCheckInterval)
+            {
+                float distanceMoved = Vector3.Distance(transform.position, lastPositionForStuckCheck);
+                bool potentiallyStuck = false;
+
+                if (timeSinceLastStuckCheck > Mathf.Epsilon) // Unikaj dzielenia przez zero
+                {
+                    if ((distanceMoved / timeSinceLastStuckCheck) < stuckSpeedThreshold)
+                    {
+                        potentiallyStuck = true;
+                    }
+                }
+                // Jeœli interwa³ jest bardzo ma³y, a ruch minimalny, te¿ uznaj za potencjalne utkniêcie
+                else if (distanceMoved < (stuckSpeedThreshold * stuckCheckInterval * 0.1f))
+                {
+                    potentiallyStuck = true;
+                }
+
+
+                if (potentiallyStuck)
+                {
+                    currentStuckTimer += timeSinceLastStuckCheck;
+                }
+                else
+                {
+                    currentStuckTimer = 0f; // Resetuj, jeœli AI siê poruszy³o
+                }
+
+                lastPositionForStuckCheck = transform.position;
+                timeSinceLastStuckCheck = 0f;
+
+                if (currentStuckTimer >= stuckTimeThreshold)
+                {
+                    Debug.LogWarning($"[{gameObject.name}] AI wydaje siê byæ zablokowane (licznik: {currentStuckTimer}s)! Teleportowanie do pierwszego waypointu.");
+                    ResetAIToFirstWaypoint();
+                    return; // Pomiñ resztê Update w tej klatce po resecie
+                }
+            }
+        }
+        else
+        {
+            // Resetuj liczniki wykrywania zablokowania, jeœli AI nie jest w stanie ruchu lub jest zatrzymane
+            lastPositionForStuckCheck = transform.position;
+            timeSinceLastStuckCheck = 0f;
+            currentStuckTimer = 0f;
+        }
+        // --- KONIEC LOGIKI WYKRYWANIA ZABLOKOWANIA ---
+
+
         bool canSeePlayer = CheckLineOfSight();
 
         switch (currentState)
@@ -122,7 +212,7 @@ public class EnemyAI : MonoBehaviour
                 if (canSeePlayer) TransitionToState(AIState.Chasing);
                 break;
             case AIState.Observing:
-                HandleObserving();                
+                HandleObserving();
                 if (canSeePlayer) TransitionToState(AIState.Chasing);
                 break;
             case AIState.Chasing:
@@ -131,7 +221,6 @@ public class EnemyAI : MonoBehaviour
             case AIState.InvestigatingLKP:
                 HandleInvestigatingLKP(canSeePlayer);
                 break;
-                
         }
     }
 
@@ -158,18 +247,67 @@ public class EnemyAI : MonoBehaviour
     // --- PATROLOWANIE ---
     void HandlePatrolling()
     {
-        if (!patrolTargetSet) FindNextPatrolTarget();
-
-        if (patrolTargetSet && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+        if (!patrolTargetSet)
         {
-            if (!agent.hasPath || agent.velocity.sqrMagnitude < 0.01f)
+            FindNextPatrolTarget();
+            if (!patrolTargetSet) return; // Nie mo¿na znaleŸæ celu, mo¿e poczekaæ lub zalogowaæ b³¹d
+        }
+
+        // SprawdŸ, czy cel zosta³ osi¹gniêty
+        // U¿yj agent.stoppingDistance + ma³y bufor dla pewnoœci
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + 0.1f)
+        {
+            // Dodatkowe sprawdzenie, czy agent rzeczywiœcie dotar³ (np. prêdkoœæ bliska zeru)
+            if (!agent.hasPath || agent.velocity.sqrMagnitude < 0.1f) // Zwiêkszono próg prêdkoœci dla pewnoœci
             {
+                // --- LOGIKA TELEPORTACJI WAYPOINTÓW ---
+                if (useWaypoints && currentWaypointIndex != -1 && currentWaypointIndex < patrolWaypoints.Count)
+                {
+                    Transform reachedWaypointTransform = patrolWaypoints[currentWaypointIndex];
+                    foreach (var link in teleportLinks)
+                    {
+                        if (link.fromWaypoint == reachedWaypointTransform && link.toWaypoint != null)
+                        {
+                            int teleportDestinationIndex = patrolWaypoints.IndexOf(link.toWaypoint);
+                            if (teleportDestinationIndex != -1)
+                            {
+                                Debug.Log($"[{gameObject.name}] Osi¹gniêto waypoint teleportuj¹cy {reachedWaypointTransform.name}, teleportacja do {link.toWaypoint.name}");
+                                agent.Warp(link.toWaypoint.position); // Teleportacja NavMeshAgent
+                                currentWaypointIndex = teleportDestinationIndex; // Zaktualizuj obecny indeks do celu teleportacji
+
+                                patrolTargetSet = false; // Wymuœ ponowne znalezienie celu z nowej lokalizacji
+
+                                // Zresetuj dostêpne waypointy, aby uwzglêdniæ now¹ pozycjê
+                                FillAvailableWaypoints();
+                                if (patrolWaypoints.Count > 1 && availableWaypointIndices.Contains(currentWaypointIndex))
+                                {
+                                    // Usuñ waypoint, do którego w³aœnie siê teleportowano, aby FindNextPatrolTarget wybra³ inny
+                                    availableWaypointIndices.Remove(currentWaypointIndex);
+                                }
+                                return; // WyjdŸ z HandlePatrolling, nastêpny Update wywo³a FindNextPatrolTarget
+                            }
+                            else
+                            {
+                                Debug.LogError($"[{gameObject.name}] Cel teleportacji '{link.toWaypoint.name}' (z '{link.fromWaypoint.name}') nie znajduje siê na g³ównej liœcie 'patrolWaypoints'! Teleportacja przerwana. AI bêdzie kontynuowaæ jak przy normalnym waypoincie.", this);
+                                // Nie teleportuj, pozwól AI przejœæ do obserwacji lub nastêpnego waypointu normalnie
+                            }
+                        }
+                    }
+                }
+                // --- KONIEC LOGIKI TELEPORTACJI WAYPOINTÓW ---
+
+                // Brak teleportacji, kontynuuj normalnie
                 patrolTargetSet = false;
-                if (stopAndLookEnabled) TransitionToState(AIState.Observing);
-                else FindNextPatrolTarget();
+                if (stopAndLookEnabled)
+                {
+                    TransitionToState(AIState.Observing);
+                }
+                // else FindNextPatrolTarget(); // Zostanie wywo³ane na pocz¹tku nastêpnego wywo³ania HandlePatrolling
+                return; // WyjdŸ po obs³u¿eniu dotarcia do celu
             }
         }
     }
+
 
     // --- OBSERWACJA ---
     void HandleObserving()
@@ -177,7 +315,7 @@ public class EnemyAI : MonoBehaviour
         observationTimer -= Time.deltaTime;
         if (observationTimer <= 0f)
         {
-            PrepareForPatrol(); 
+            PrepareForPatrol();
             return;
         }
 
@@ -206,7 +344,6 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            // Zapisz pozycjê AI, gdy zaczyna badaæ LKP
             investigationOriginPosition = transform.position;
             TransitionToState(AIState.InvestigatingLKP);
         }
@@ -274,9 +411,9 @@ public class EnemyAI : MonoBehaviour
             if (availableWaypointIndices.Count == 0)
             {
                 FillAvailableWaypoints();
-                if (patrolWaypoints.Count > 1 && currentWaypointIndex != -1)
-                    availableWaypointIndices.Remove(currentWaypointIndex);
-                if (availableWaypointIndices.Count == 0 && patrolWaypoints.Count > 0)
+                if (patrolWaypoints.Count > 1 && currentWaypointIndex != -1 && availableWaypointIndices.Contains(currentWaypointIndex))
+                    availableWaypointIndices.Remove(currentWaypointIndex); // Nie wybieraj od razu tego samego waypointu
+                if (availableWaypointIndices.Count == 0 && patrolWaypoints.Count > 0) // Zabezpieczenie, jeœli currentWaypointIndex by³ jedynym
                     FillAvailableWaypoints();
             }
 
@@ -292,11 +429,11 @@ public class EnemyAI : MonoBehaviour
                     currentPatrolTargetPosition = patrolWaypoints[currentWaypointIndex].position;
                     patrolTargetSet = true;
                 }
-                else return;
+                else { Debug.LogWarning($"[{gameObject.name}] Wybrany waypoint (indeks: {currentWaypointIndex}) jest null. Próba znalezienia innego.", this); return; } // WyjdŸ, aby spróbowaæ ponownie
             }
-            else return;
+            else { Debug.LogWarning($"[{gameObject.name}] Brak dostêpnych waypointów do wybrania.", this); return; } // WyjdŸ, jeœli nie ma co wybraæ
         }
-        else
+        else // Tryb losowego chodzenia
         {
             Vector3 targetDirection = Vector3.zero;
             bool useBias = false;
@@ -317,9 +454,10 @@ public class EnemyAI : MonoBehaviour
                 agent.SetDestination(currentPatrolTargetPosition);
             else
             {
+                Debug.LogWarning($"[{gameObject.name}] Nie mo¿na obliczyæ œcie¿ki do {currentPatrolTargetPosition}. Cel patrolu nieustawiony.", this);
                 patrolTargetSet = false;
                 if (useWaypoints && currentWaypointIndex != -1 && !availableWaypointIndices.Contains(currentWaypointIndex))
-                    availableWaypointIndices.Add(currentWaypointIndex);
+                    availableWaypointIndices.Add(currentWaypointIndex); // Dodaj z powrotem, jeœli œcie¿ka nieudana
             }
         }
     }
@@ -359,47 +497,29 @@ public class EnemyAI : MonoBehaviour
 
     void TransitionToState(AIState newState)
     {
-        if (currentState == newState && agent.isOnNavMesh) return;
+        if (currentState == newState && agent.isOnNavMesh && !agent.isStopped) return; // Dodano !agent.isStopped, aby umo¿liwiæ ponowne wejœcie w Observing
         if (currentState == AIState.Observing || currentState == AIState.InvestigatingLKP)
             agent.isStopped = false;
 
         AIState previousState = currentState;
         currentState = newState;
 
-        // --- ZARZ¥DZANIE PARAMETRAMI ANIMATORA ---
         if (animator != null)
         {
-            // Najpierw zresetuj wszystkie flagi
             animator.SetBool("isPatrolling", false);
             animator.SetBool("isObserving", false);
             animator.SetBool("isChasing", false);
-            animator.SetBool("isInvestigating", false); // Upewnij siê, ¿e nazwa parametru jest poprawna
+            animator.SetBool("isInvestigating", false);
 
-            // Nastêpnie ustaw flagê dla nowego stanu
             switch (newState)
             {
-                case AIState.Patrolling:
-                    animator.SetBool("isPatrolling", true);
-                    break;
-                case AIState.Observing:
-                    animator.SetBool("isObserving", true);
-                    break;
-                case AIState.Chasing:
-                    animator.SetBool("isChasing", true);
-                    break;
-                case AIState.InvestigatingLKP:
-                    // Jeœli chcesz, aby InvestigatingLKP u¿ywa³o animacji biegania,
-                    // mo¿esz ustawiæ isChasing na true lub stworzyæ dedykowan¹ animacjê/parametr.
-                    // Na razie zak³adam, ¿e masz parametr "isInvestigating" i chcesz go u¿yæ.
-                    // Jeœli ma to byæ animacja biegania, u¿yj: animator.SetBool("isChasing", true);
-                    animator.SetBool("isInvestigating", true); // LUB animator.SetBool("isChasing", true);
-                    break;
+                case AIState.Patrolling: animator.SetBool("isPatrolling", true); break;
+                case AIState.Observing: animator.SetBool("isObserving", true); break;
+                case AIState.Chasing: animator.SetBool("isChasing", true); break;
+                case AIState.InvestigatingLKP: animator.SetBool("isInvestigating", true); break;
             }
         }
-        // --- KONIEC ZARZ¥DZANIA PARAMETRAMI ANIMATORA ---
 
-
-        // Logika specyficzna dla przejœcia stanu AI (bez zmian)
         switch (newState)
         {
             case AIState.Patrolling:
@@ -413,7 +533,7 @@ public class EnemyAI : MonoBehaviour
 
             case AIState.Observing:
                 agent.isStopped = true;
-                agent.updateRotation = true;
+                agent.updateRotation = true; // Pozwól na obracanie siê podczas obserwacji
                 observationTimer = observationDuration;
                 nextObservationTurnTime = Time.time + Random.Range(0.1f, 0.5f);
                 targetObservationRotation = transform.rotation;
@@ -481,6 +601,61 @@ public class EnemyAI : MonoBehaviour
         return false;
     }
 
+    // NOWA METODA DO RESETOWANIA AI
+    void ResetAIToFirstWaypoint()
+    {
+        if (useWaypoints && patrolWaypoints.Count > 0 && patrolWaypoints[0] != null)
+        {
+            Transform firstWaypoint = patrolWaypoints[0];
+            Debug.Log($"[{gameObject.name}] Resetowanie AI do pierwszego waypointu: {firstWaypoint.name}");
+
+            if (agent.isOnNavMesh)
+            {
+                agent.Warp(firstWaypoint.position); // Teleportuj agenta
+            }
+            else
+            {
+                transform.position = firstWaypoint.position; // Teleportuj transform, jeœli agent nie jest na NavMesh
+                Debug.LogWarning($"[{gameObject.name}] Agent nie by³ na NavMesh podczas resetu. Teleportowano transform.");
+            }
+
+
+            // PrzejdŸ do stanu patrolowania. To ustawi parametry agenta (prêdkoœæ itp.)
+            // i ustawi patrolTargetSet = false (chyba ¿e poprzedni stan to Observing, co jest ma³o prawdopodobne, jeœli AI utknê³o).
+            TransitionToState(AIState.Patrolling);
+
+            // Ustaw pierwszy waypoint jako bie¿¹c¹ lokalizacjê dla logiki patrolu,
+            // a FindNextPatrolTarget wybierze *nastêpny*.
+            currentWaypointIndex = 0;
+            // patrolTargetSet jest ju¿ false z TransitionToState, wiêc FindNextPatrolTarget zostanie uruchomione.
+
+            // Zresetuj dostêpne waypointy dla nowego cyklu patrolu, zaczynaj¹c od waypointu 0.
+            FillAvailableWaypoints();
+            if (patrolWaypoints.Count > 1 && availableWaypointIndices.Contains(0))
+            {
+                availableWaypointIndices.Remove(0); // Aby nastêpne FindNextPatrolTarget wybra³o coœ innego.
+            }
+
+            // Zresetuj inne istotne zmienne stanu
+            reachedLKPInInvestigation = false;
+            anticipationTimer = 0f;
+            observationTimer = 0f; // Zresetuj równie¿ timer obserwacji
+        }
+        else
+        {
+            Debug.LogWarning($"[{gameObject.name}] Próbowano zresetowaæ do pierwszego waypointu, ale brak zdefiniowanych waypointów lub pierwszy jest null. Próba losowego punktu patrolowego.", this);
+            patrolTargetSet = false; // Wymuœ znalezienie nowego losowego celu
+            TransitionToState(AIState.Patrolling);
+        }
+
+        // Zresetuj liczniki wykrywania zablokowania
+        currentStuckTimer = 0f;
+        timeSinceLastStuckCheck = 0f;
+        lastPositionForStuckCheck = transform.position; // Zaktualizuj ostatni¹ pozycjê do nowej, teleportowanej pozycji
+        if (agent.isOnNavMesh && agent.isStopped) agent.isStopped = false; // Upewnij siê, ¿e agent mo¿e siê poruszaæ
+    }
+
+
     #endregion
 
     #region Gizmos
@@ -526,17 +701,15 @@ public class EnemyAI : MonoBehaviour
         if (currentState == AIState.InvestigatingLKP && agent != null)
         {
             Gizmos.color = Color.magenta; Gizmos.DrawWireSphere(lastKnownPlayerPosition, 1.0f);
-            // Linia od miejsca, gdzie AI zaczê³o badaæ, do LKP
             Gizmos.color = Color.white;
             Gizmos.DrawLine(investigationOriginPosition, lastKnownPlayerPosition);
 
-
-            if (reachedLKPInInvestigation) // Jeœli jest w fazie "przeczuwania"
+            if (reachedLKPInInvestigation)
             {
                 Gizmos.color = Color.Lerp(Color.red, Color.magenta, anticipationTimer / anticipationDuration);
-                if (player != null) Gizmos.DrawLine(transform.position, player.position); // Linia "przeczuwania" do aktualnej pozycji gracza
+                if (player != null) Gizmos.DrawLine(transform.position, player.position);
             }
-            else if (agent.hasPath) // Jeœli idzie do LKP
+            else if (agent.hasPath)
             {
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawLine(transform.position, agent.pathEndPosition);
@@ -553,12 +726,31 @@ public class EnemyAI : MonoBehaviour
                 if (patrolWaypoints[i] != null)
                 {
                     Gizmos.DrawWireSphere(patrolWaypoints[i].position, 0.5f);
-                    int nextIndex = (i + 1) % patrolWaypoints.Count;
-                    if (patrolWaypoints[nextIndex] != null) { Gizmos.color = Color.gray; Gizmos.DrawLine(patrolWaypoints[i].position, patrolWaypoints[nextIndex].position); Gizmos.color = Color.blue; }
+                    // Rysuj linie miêdzy kolejnymi waypointami (opcjonalnie)
+                    // int nextIndex = (i + 1) % patrolWaypoints.Count;
+                    // if (patrolWaypoints[nextIndex] != null) { Gizmos.color = Color.gray; Gizmos.DrawLine(patrolWaypoints[i].position, patrolWaypoints[nextIndex].position); Gizmos.color = Color.blue; }
                 }
             }
             if (currentWaypointIndex >= 0 && currentWaypointIndex < patrolWaypoints.Count && patrolWaypoints[currentWaypointIndex] != null)
             { Gizmos.color = Color.green; Gizmos.DrawSphere(patrolWaypoints[currentWaypointIndex].position, 0.6f); }
+        }
+
+        // Gizmos dla linków teleportacji
+        Gizmos.color = Color.red;
+        foreach (var link in teleportLinks)
+        {
+            if (link.fromWaypoint != null && link.toWaypoint != null)
+            {
+                Gizmos.DrawLine(link.fromWaypoint.position + Vector3.up * 0.2f, link.toWaypoint.position + Vector3.up * 0.2f);
+                // Strza³ka wskazuj¹ca kierunek teleportacji
+                Vector3 direction = (link.toWaypoint.position - link.fromWaypoint.position).normalized;
+                if (direction != Vector3.zero)
+                {
+                    Quaternion rotation = Quaternion.LookRotation(direction);
+                    Gizmos.DrawRay(link.toWaypoint.position + Vector3.up * 0.2f - direction * 0.5f, rotation * Quaternion.Euler(0, 20, 0) * Vector3.back * 0.3f);
+                    Gizmos.DrawRay(link.toWaypoint.position + Vector3.up * 0.2f - direction * 0.5f, rotation * Quaternion.Euler(0, -20, 0) * Vector3.back * 0.3f);
+                }
+            }
         }
     }
     #endregion
