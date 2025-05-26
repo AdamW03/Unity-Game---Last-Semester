@@ -11,9 +11,9 @@ public class ProximityGlitchController : MonoBehaviour
 
     [Header("Ustawienia Walca Detekcji")]
     [Tooltip("Promieñ walca, w którym efekt mo¿e siê aktywowaæ.")]
-    public float detectionCylinderRadius = 30f;
+    public float detectionCylinderRadius = 25f;
     [Tooltip("Po³owa wysokoœci walca (od œrodka przeciwnika w górê i w dó³), w którym efekt mo¿e siê aktywowaæ.")]
-    public float detectionCylinderHalfHeight = 3f; 
+    public float detectionCylinderHalfHeight = 2f; 
 
     [Header("Ustawienia Intensywnoœci Efektu w Walcu")]
     [Tooltip("Promieñ (na p³aszczyŸnie XZ) wewn¹trz walca, przy którym efekt osi¹ga maksymaln¹ intensywnoœæ. Powinien byæ <= detectionCylinderRadius.")]
