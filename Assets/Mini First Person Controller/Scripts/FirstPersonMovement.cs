@@ -1,44 +1,91 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    public float speed = 5;
+    public float speed = 3;
+
+    Rigidbody rigidbodyComponent; // Zmieniona nazwa, żeby uniknąć konfliktu z właściwością Component.rigidbody
 
     [Header("Running")]
     public bool canRun = true;
     public bool IsRunning { get; private set; }
-    public float runSpeed = 9;
+    public float runSpeed = 5;
     public KeyCode runningKey = KeyCode.LeftShift;
 
-    Rigidbody rigidbody;
-    /// <summary> Functions to override movement speed. Will use the last added override. </summary>
+    [Header("Custom Gravity")]
+    public float gravityMultiplier = 2f;
+
+    [Header("Movement Control")] // NOWA SEKCJA
+    public bool canMove = true;  // Flaga do kontrolowania ruchu
+
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
-
-
 
     void Awake()
     {
-        // Get the rigidbody on this.
-        rigidbody = GetComponent<Rigidbody>();
+        rigidbodyComponent = GetComponent<Rigidbody>(); // Używamy zmienionej nazwy
+        if (rigidbodyComponent != null)
+        {
+            rigidbodyComponent.useGravity = false;
+        }
+        else
+        {
+            Debug.LogError("Rigidbody component not found on this GameObject!", this);
+        }
     }
 
     void FixedUpdate()
     {
-        // Update IsRunning from input.
+        ApplyCustomGravity();
+
+        // Jeśli ruch jest zablokowany, nie przetwarzaj inputu i zatrzymaj ruch poziomy
+        if (!canMove)
+        {
+            if (rigidbodyComponent != null)
+            {
+                // Zerujemy tylko prędkość poziomą, grawitacja nadal działa
+                rigidbodyComponent.linearVelocity = new Vector3(0, rigidbodyComponent.linearVelocity.y, 0);
+            }
+            IsRunning = false; // Upewnij się, że nie jest oznaczony jako biegnący
+            return; // Zakończ FixedUpdate wcześniej
+        }
+
         IsRunning = canRun && Input.GetKey(runningKey);
 
-        // Get targetMovingSpeed.
         float targetMovingSpeed = IsRunning ? runSpeed : speed;
         if (speedOverrides.Count > 0)
         {
             targetMovingSpeed = speedOverrides[speedOverrides.Count - 1]();
         }
 
-        // Get targetVelocity from input.
-        Vector2 targetVelocity =new Vector2( Input.GetAxis("Horizontal") * targetMovingSpeed, Input.GetAxis("Vertical") * targetMovingSpeed);
+        Vector2 targetVelocity = new Vector2(Input.GetAxis("Horizontal") * targetMovingSpeed, Input.GetAxis("Vertical") * targetMovingSpeed);
 
-        // Apply movement.
-        rigidbody.linearVelocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.linearVelocity.y, targetVelocity.y);
+        if (rigidbodyComponent != null)
+        {
+            Vector3 currentHorizontalVelocity = transform.rotation * new Vector3(targetVelocity.x, 0, targetVelocity.y);
+            rigidbodyComponent.linearVelocity = new Vector3(currentHorizontalVelocity.x, rigidbodyComponent.linearVelocity.y, currentHorizontalVelocity.z);
+        }
+    }
+
+    void ApplyCustomGravity()
+    {
+        if (rigidbodyComponent != null)
+        {
+            Vector3 customGravity = Physics.gravity * gravityMultiplier;
+            rigidbodyComponent.AddForce(customGravity, ForceMode.Acceleration);
+        }
+    }
+
+    // NOWA METODA do włączania/wyłączania ruchu z zewnątrz
+    public void SetMovementEnabled(bool isEnabled)
+    {
+        canMove = isEnabled;
+        Debug.Log($"FirstPersonMovement: SetMovementEnabled called. canMove is now {canMove}. Rigidbody: {(rigidbodyComponent == null ? "NULL" : "Assigned")}");
+        if (!isEnabled && rigidbodyComponent != null)
+        {
+            rigidbodyComponent.linearVelocity = new Vector3(0, rigidbodyComponent.linearVelocity.y, 0);
+            IsRunning = false;
+        }
     }
 }
