@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: 7d65650343bb67c45be522a309b1b661
+timeCreated: 1526370392
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Barierka:Barierka:Component_1_1
+    100004: Barierka:Barierka:Component_1_2
+    100006: Barierka:Barierka:Component_1_3
+    100008: Barierka:Barierka:Component_1_4
+    100010: Barierka:Barierka:Component_1_5
+    100012: Barierka:Barierka:Component_1_6
+    100014: Barierka:Barierka:Component_1_7
+    100016: Barierka:Barierka:Component_1_8
+    100018: Barierka:Barierka:Component_2_1
+    100020: Barierka:Barierka:Component_2_2
+    100022: Barierka:Barierka:Component_2_3
+    100024: Barierka:Barierka:Component_3_1
+    100026: Barierka:Barierka:Mesh1
+    100028: Barierka:Barierka:Mesh10
+    100030: Barierka:Barierka:Mesh11
+    100032: Barierka:Barierka:Mesh12
+    100034: Barierka:Barierka:Mesh13
+    100036: Barierka:Barierka:Mesh2
+    100038: Barierka:Barierka:Mesh3
+    100040: Barierka:Barierka:Mesh4
+    100042: Barierka:Barierka:Mesh5
+    100044: Barierka:Barierka:Mesh6
+    100046: Barierka:Barierka:Mesh7
+    100048: Barierka:Barierka:Mesh8
+    100050: Barierka:Barierka:Mesh9
+    100052: Barierka:Component_3_1
+    100054: Barierka:Mesh12
+    400000: //RootNode
+    400002: Barierka:Barierka:Component_1_1
+    400004: Barierka:Barierka:Component_1_2
+    400006: Barierka:Barierka:Component_1_3
+    400008: Barierka:Barierka:Component_1_4
+    400010: Barierka:Barierka:Component_1_5
+    400012: Barierka:Barierka:Component_1_6
+    400014: Barierka:Barierka:Component_1_7
+    400016: Barierka:Barierka:Component_1_8
+    400018: Barierka:Barierka:Component_2_1
+    400020: Barierka:Barierka:Component_2_2
+    400022: Barierka:Barierka:Component_2_3
+    400024: Barierka:Barierka:Component_3_1
+    400026: Barierka:Barierka:Mesh1
+    400028: Barierka:Barierka:Mesh10
+    400030: Barierka:Barierka:Mesh11
+    400032: Barierka:Barierka:Mesh12
+    400034: Barierka:Barierka:Mesh13
+    400036: Barierka:Barierka:Mesh2
+    400038: Barierka:Barierka:Mesh3
+    400040: Barierka:Barierka:Mesh4
+    400042: Barierka:Barierka:Mesh5
+    400044: Barierka:Barierka:Mesh6
+    400046: Barierka:Barierka:Mesh7
+    400048: Barierka:Barierka:Mesh8
+    400050: Barierka:Barierka:Mesh9
+    400052: Barierka:Component_3_1
+    400054: Barierka:Mesh12
+    2100000: Barierka_Barierka_FrontColor
+    2100002: Barierka_lambert4
+    2100004: Barierka_lambert2
+    2100006: Barierka_lambert3
+    2300000: Barierka:Barierka:Mesh1
+    2300002: Barierka:Barierka:Mesh10
+    2300004: Barierka:Barierka:Mesh11
+    2300006: Barierka:Barierka:Mesh12
+    2300008: Barierka:Barierka:Mesh13
+    2300010: Barierka:Barierka:Mesh2
+    2300012: Barierka:Barierka:Mesh3
+    2300014: Barierka:Barierka:Mesh4
+    2300016: Barierka:Barierka:Mesh5
+    2300018: Barierka:Barierka:Mesh6
+    2300020: Barierka:Barierka:Mesh7
+    2300022: Barierka:Barierka:Mesh8
+    2300024: Barierka:Barierka:Mesh9
+    2300026: Barierka:Mesh12
+    3300000: Barierka:Barierka:Mesh1
+    3300002: Barierka:Barierka:Mesh10
+    3300004: Barierka:Barierka:Mesh11
+    3300006: Barierka:Barierka:Mesh12
+    3300008: Barierka:Barierka:Mesh13
+    3300010: Barierka:Barierka:Mesh2
+    3300012: Barierka:Barierka:Mesh3
+    3300014: Barierka:Barierka:Mesh4
+    3300016: Barierka:Barierka:Mesh5
+    3300018: Barierka:Barierka:Mesh6
+    3300020: Barierka:Barierka:Mesh7
+    3300022: Barierka:Barierka:Mesh8
+    3300024: Barierka:Barierka:Mesh9
+    3300026: Barierka:Mesh12
+    4300000: Barierka:Barierka:Mesh1
+    4300002: Barierka:Barierka:Mesh2
+    4300004: Barierka:Barierka:Mesh3
+    4300006: Barierka:Barierka:Mesh4
+    4300008: Barierka:Barierka:Mesh5
+    4300010: Barierka:Barierka:Mesh6
+    4300012: Barierka:Barierka:Mesh7
+    4300014: Barierka:Barierka:Mesh8
+    4300016: Barierka:Barierka:Mesh9
+    4300018: Barierka:Barierka:Mesh10
+    4300020: Barierka:Barierka:Mesh11
+    4300022: Barierka:Barierka:Mesh12
+    4300024: Barierka:Barierka:Mesh13
+    4300026: Barierka:Mesh12
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,176 @@
+fileFormatVersion: 2
+guid: 7a8da9de410bea44bbb145a2cd029d50
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: sama_sala:group
+    100004: sama_sala:group3
+    100006: sama_sala:pasted__group
+    100008: sama_sala:pasted__group2
+    100010: sama_sala:pasted__kontakt_rolety
+    100012: sama_sala:pasted__pasted__pCylinder1
+    100014: sama_sala:pasted__pasted__pCylinder1 1
+    100016: sama_sala:pasted__pasted__pCylinder2
+    100018: sama_sala:pasted__pasted__pCylinder3
+    100020: sama_sala:pasted__pCube1
+    100022: sama_sala:pasted__pCylinder2
+    100024: sama_sala:pasted__pCylinder3
+    100026: sama_sala:pasted__transform1
+    100028: sama_sala:pasted__transform2
+    100030: sama_sala:pasted__transform3
+    100032: sama_sala:pasted__transform4
+    100034: sama_sala:pasted__transform5
+    100036: sama_sala:pCylinder10
+    100038: sama_sala:pCylinder11
+    100040: sama_sala:pCylinder5
+    100042: sama_sala:pCylinder6
+    100044: sama_sala:pCylinder7
+    100046: sama_sala:pCylinder8
+    100048: sama_sala:pCylinder9
+    100050: sama_sala:polySurface1
+    100052: sama_sala:polySurface1 1
+    100054: sama_sala:polySurface2
+    100056: sama_sala:polySurface3
+    100058: sama_sala:transform16
+    100060: sama_sala:transform17
+    100062: sama_sala:transform18
+    100064: sama_sala:transform19
+    100066: sama_sala:transform20
+    100068: sama_sala:transform21
+    100070: sama_sala:transform22
+    100072: sama_sala:transform23
+    100074: sama_sala:transform24
+    100076: sama_sala:transform25
+    100078: sama_sala:transform26
+    100080: sama_sala:transform27
+    400000: //RootNode
+    400002: sama_sala:group
+    400004: sama_sala:group3
+    400006: sama_sala:pasted__group
+    400008: sama_sala:pasted__group2
+    400010: sama_sala:pasted__kontakt_rolety
+    400012: sama_sala:pasted__pasted__pCylinder1
+    400014: sama_sala:pasted__pasted__pCylinder1 1
+    400016: sama_sala:pasted__pasted__pCylinder2
+    400018: sama_sala:pasted__pasted__pCylinder3
+    400020: sama_sala:pasted__pCube1
+    400022: sama_sala:pasted__pCylinder2
+    400024: sama_sala:pasted__pCylinder3
+    400026: sama_sala:pasted__transform1
+    400028: sama_sala:pasted__transform2
+    400030: sama_sala:pasted__transform3
+    400032: sama_sala:pasted__transform4
+    400034: sama_sala:pasted__transform5
+    400036: sama_sala:pCylinder10
+    400038: sama_sala:pCylinder11
+    400040: sama_sala:pCylinder5
+    400042: sama_sala:pCylinder6
+    400044: sama_sala:pCylinder7
+    400046: sama_sala:pCylinder8
+    400048: sama_sala:pCylinder9
+    400050: sama_sala:polySurface1
+    400052: sama_sala:polySurface1 1
+    400054: sama_sala:polySurface2
+    400056: sama_sala:polySurface3
+    400058: sama_sala:transform16
+    400060: sama_sala:transform17
+    400062: sama_sala:transform18
+    400064: sama_sala:transform19
+    400066: sama_sala:transform20
+    400068: sama_sala:transform21
+    400070: sama_sala:transform22
+    400072: sama_sala:transform23
+    400074: sama_sala:transform24
+    400076: sama_sala:transform25
+    400078: sama_sala:transform26
+    400080: sama_sala:transform27
+    2100000: sama_sala_lambert3
+    2300000: sama_sala:group3
+    3300000: sama_sala:group3
+    4300000: sama_sala:group3
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
