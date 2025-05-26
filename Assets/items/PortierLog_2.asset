@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04409aefae9d73241b9cdf59673ff866, type: 3}
+  m_Name: PortierLog_2
+  m_EditorClassIdentifier: 
+  pageNumber: 2
+  noteTitle: 'Portier Log 2/4 Afternoon Entry:'
+  noteContent: "I reported the power issues to the boss, but he just waved me off.
+    \"Routine maintenance,\" my foot! Routine? I saw Kowalski running around the
+    corridors like a madman again. Looked like he was searching for something. I
+    remember this morning he asked about the key to the Warehouse on the 1st floor,
+    but I didn't have it. Later, I saw the cleaner lady with it \u2013 she was heading
+    towards the Practice Rooms."

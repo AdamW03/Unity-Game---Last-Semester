@@ -1135,7 +1135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5684469446155757098, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -61.105835
+      value: -61.105957
       objectReference: {fileID: 0}
     - target: {fileID: 7116073706139067096, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3672,6 +3672,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1043234455}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &651639869 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+  m_PrefabInstance: {fileID: 1980206581}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &710284623
 GameObject:
   m_ObjectHideFlags: 0
@@ -4757,6 +4762,7 @@ Transform:
   - {fileID: 597058625}
   - {fileID: 1640168421}
   - {fileID: 1408810972}
+  - {fileID: 651639869}
   - {fileID: 1413154940}
   - {fileID: 1098893612}
   m_Father: {fileID: 0}
@@ -5339,7 +5345,7 @@ MonoBehaviour:
         m_CallState: 2
   itemData: {fileID: 0}
   itemPickupSoundClip: {fileID: 8300000, guid: 2f6029fa13fab854688ee18173a35759, type: 3}
-  noteData: {fileID: 11400000, guid: af97f86322122e348b4e7d6f23ad30b7, type: 2}
+  noteData: {fileID: 11400000, guid: 8d4bea57e031195498973695a759643c, type: 2}
   notePickupSoundClip: {fileID: 8300000, guid: 2f6029fa13fab854688ee18173a35759, type: 3}
 --- !u!65 &1413154942
 BoxCollider:
@@ -6476,6 +6482,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957188149}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1980206581
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1082925528}
+    m_Modifications:
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.537
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.594
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384847231620702680, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5614357034524492429, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: m_Name
+      value: note_0 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861431717444061462, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: interactionPrompt
+      value: '[F] Pick up note'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861431717444061462, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: itemPickupSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f6029fa13fab854688ee18173a35759, type: 3}
+    - target: {fileID: 8861431717444061462, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: notePickupSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f6029fa13fab854688ee18173a35759, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
 --- !u!1001 &2002622407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7539,6 +7614,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: note_0
       objectReference: {fileID: 0}
+    - target: {fileID: 8861431717444061462, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
+      propertyPath: noteData
+      value: 
+      objectReference: {fileID: 11400000, guid: 94cb62fa215c5e0498ea1bb7c81543ae, type: 2}
     - target: {fileID: 8861431717444061462, guid: 063a2fe5f6cd70147adbaaf2ea5ea988, type: 3}
       propertyPath: interactionPrompt
       value: '[F] Pick up note'

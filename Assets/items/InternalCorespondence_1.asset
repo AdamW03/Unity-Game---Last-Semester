@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04409aefae9d73241b9cdf59673ff866, type: 3}
+  m_Name: InternalCorespondence_1
+  m_EditorClassIdentifier: 
+  pageNumber: 9
+  noteTitle: 'Internal 1/4 Panel Problem:'
+  noteContent: "[dean@ans-elblag.pl] \nSubject: Issue with the Exit Panel. From:
+    Technical Department To: IT Department. Body: We are reporting a problem with
+    the main exit door control panel. It is unresponsive to commands. Is there any
+    possibility of a manual override procedure? I heard IT mentioned something about
+    this documentation, maybe in the Technicians' room? We don't have the key to
+    their office.\n\n[Printed]"
