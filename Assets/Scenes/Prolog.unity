@@ -17816,6 +17816,12 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6804549358441481835, guid: 756b28fde97364c44ae5c1dbc3bc9263, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7242115683049498745}
+    - targetCorrespondingSourceObject: {fileID: 6804549358441481835, guid: 756b28fde97364c44ae5c1dbc3bc9263, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7242115683049498746}
     - targetCorrespondingSourceObject: {fileID: 2766176142763997919, guid: 756b28fde97364c44ae5c1dbc3bc9263, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1257681912}
@@ -17832,6 +17838,64 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 469635645}
   m_SourcePrefab: {fileID: 100100000, guid: 756b28fde97364c44ae5c1dbc3bc9263, type: 3}
+--- !u!1 &7242115683049498744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6804549358441481835, guid: 756b28fde97364c44ae5c1dbc3bc9263, type: 3}
+  m_PrefabInstance: {fileID: 7242115683049498743}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7242115683049498745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7242115683049498744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36950e31834ad74ab2b6f83f523cffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionPrompt: '[F] Enter the building'
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7242115683049498745}
+        m_TargetAssemblyTypeName: Interactable, Assembly-CSharp
+        m_MethodName: ChangeToNextScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  itemData: {fileID: 0}
+  itemPickupSoundClip: {fileID: 0}
+  noteData: {fileID: 0}
+  notePickupSoundClip: {fileID: 0}
+--- !u!65 &7242115683049498746
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7242115683049498744}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13926749, y: 1.9743152, z: 1.543185}
+  m_Center: {x: 0.019217832, y: -0.01378586, z: 0.0013979268}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
