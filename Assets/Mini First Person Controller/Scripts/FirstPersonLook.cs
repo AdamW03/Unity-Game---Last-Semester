@@ -80,6 +80,12 @@ public class FirstPersonLook : MonoBehaviour
     public void SetLookEnabled(bool isEnabled)
     {
         canLook = isEnabled;
+        if (isEnabled) // Zresetuj, gdy rozglądanie jest WŁĄCZANE
+        {
+            velocity = Vector2.zero;
+            frameVelocity = Vector2.zero;
+            Debug.Log("FirstPersonLook: Resetting look velocity and frameVelocity.");
+        }
         Debug.Log($"FirstPersonLook: SetLookEnabled called. canLook is now {canLook}");
     }
 }
