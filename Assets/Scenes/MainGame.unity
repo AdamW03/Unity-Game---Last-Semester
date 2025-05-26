@@ -1269,8 +1269,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 14.141023, y: 1, z: 29.217154}
-  m_Center: {x: -0.021178026, y: 0, z: -10.127046}
+  m_Size: {x: 20.093174, y: 6.7825527, z: 31.156216}
+  m_Center: {x: 0.5748933, y: 2.8912756, z: -10.639019}
 --- !u!1001 &357841636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1381,8 +1381,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.384184, y: 1, z: 28.026606}
-  m_Center: {x: -0.48304814, y: 0, z: -11.166039}
+  m_Size: {x: 20.089436, y: 6.12148, z: 33.275204}
+  m_Center: {x: 1.2727119, y: 2.5607393, z: -11.284865}
 --- !u!1 &359687722 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6218311168066881150, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
@@ -2236,7 +2236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5684469446155757098, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 350
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 6660899679069633701, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_Color.b
@@ -2335,6 +2335,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+--- !u!1 &558510697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3429782624369900746, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+  m_PrefabInstance: {fileID: 558510696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &558510698 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4477668402058143278, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+  m_PrefabInstance: {fileID: 558510696}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &594530351 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1842056401013309551, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
@@ -2618,8 +2634,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 28.627703, y: 1, z: 14.628569}
-  m_Center: {x: 12.033106, y: 0, z: -0.104709595}
+  m_Size: {x: 30.1417, y: 4.85764, z: 18.289038}
+  m_Center: {x: 12.350036, y: 1.9288192, z: 0.11073699}
 --- !u!1 &657218323
 GameObject:
   m_ObjectHideFlags: 0
@@ -3354,8 +3370,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 16.062305, y: 1, z: 29.042786}
-  m_Center: {x: -0.18269289, y: 0, z: -9.80167}
+  m_Size: {x: 20.870995, y: 6.2272625, z: 33.89048}
+  m_Center: {x: 0.7029181, y: 2.6136305, z: -10.927228}
 --- !u!1 &782419354 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8085109375260557749, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
@@ -3532,6 +3548,26 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.99999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.y
+      value: 74.480385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.x
+      value: -2.1919042e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.y
+      value: 36.740192
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.z
+      value: -9.283069e-15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3979,6 +4015,14 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.y
+      value: 118.775116
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.y
+      value: 10.765121
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4671,6 +4715,14 @@ PrefabInstance:
       propertyPath: itemPickupSoundClip
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.y
+      value: 47.034195
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.y
+      value: 23.0171
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4701,6 +4753,14 @@ PrefabInstance:
       propertyPath: interactionText
       value: 
       objectReference: {fileID: 594530351}
+    - target: {fileID: 4494145815795992441, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
+      propertyPath: deathText
+      value: 
+      objectReference: {fileID: 558510698}
+    - target: {fileID: 4494145815795992441, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
+      propertyPath: deathBackgroundObject
+      value: 
+      objectReference: {fileID: 558510697}
     - target: {fileID: 4951696737051815484, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -127.18
@@ -4748,6 +4808,14 @@ PrefabInstance:
     - target: {fileID: 7310731866817927251, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
       propertyPath: m_Height
       value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519483357671768718, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519483357671768718, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
+      propertyPath: jumpStrength
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8953035819635269684, guid: 602b16bafc2ab1845a06afd31f0138bc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5346,6 +5414,26 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.99999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.y
+      value: 123.52692
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.x
+      value: 6.4505424e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.y
+      value: 12.805618
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.z
+      value: -3.42866e-15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32294,8 +32382,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 26.732786, y: 1, z: 14.62857}
-  m_Center: {x: -11.43401, y: 0, z: -0.104709595}
+  m_Size: {x: 31.813124, y: 7.366578, z: 18.678852}
+  m_Center: {x: -10.285942, y: 3.1832893, z: 0.038868137}
 --- !u!1001 &1853089764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32367,6 +32455,26 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.99999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.y
+      value: 117.26433
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.x
+      value: 1.0838389e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.y
+      value: 16.835007
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.z
+      value: -2.2168695e-15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33191,6 +33299,14 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Size.y
+      value: 49.8295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: m_Center.y
+      value: 24.41475
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

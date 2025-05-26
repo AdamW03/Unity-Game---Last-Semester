@@ -19948,7 +19948,7 @@ PrefabInstance:
       objectReference: {fileID: 1431099256}
     - target: {fileID: 3429782624369900746, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3633082364898801234, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_AnchorMax.x
@@ -27713,6 +27713,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2019163099563638495, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3937346375304894036, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
       propertyPath: carouselPanel
       value: 
@@ -27753,6 +27757,10 @@ PrefabInstance:
       propertyPath: feedbackMessageText
       value: 
       objectReference: {fileID: 239082725}
+    - target: {fileID: 4823681505408030798, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4823681505408030798, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
       propertyPath: introDisplayText
       value: 
