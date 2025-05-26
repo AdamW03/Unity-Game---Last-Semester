@@ -92,4 +92,5 @@ public class Interactable : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);       
     }
+
 }
