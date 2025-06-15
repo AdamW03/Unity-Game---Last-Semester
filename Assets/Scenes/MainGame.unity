@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &18659055 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1948741481020437817, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
-  m_PrefabInstance: {fileID: 2256889187154378666}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d8aae05180f1c47a2a10b919941fd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &21286822 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7697996992102919837, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
@@ -1182,6 +1171,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: a4f6863d94a4fda4c89309fb1f4c3a4c, type: 2}
+    - target: {fileID: 364344862641211839, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 2751388007298822959, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.006869738
@@ -1294,6 +1287,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: 805223bd25647644384c1105d6fd3f5e, type: 2}
+    - target: {fileID: 364344862641211839, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 2751388007298822959, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.006869738
@@ -1406,6 +1403,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: 02566a8b268e0224d986e9eedab3b583, type: 2}
+    - target: {fileID: 364344862641211839, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 2751388007298822959, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.006869738
@@ -2157,6 +2158,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2488341181454405474, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 3216472816571987682, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2317,6 +2322,18 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1130388540}
+    - target: {fileID: 7697996992102919837, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+      propertyPath: m_fontSize
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697996992102919837, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697996992102919837, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8178349573187538753, guid: 93ce6d0f840bf5740b01135217c2f737, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2898,6 +2915,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1113083280}
     m_Modifications:
+    - target: {fileID: 647596798904857154, guid: 529afb140c4e35d4c96891ce78cd5356, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: 'Added to inventory: {itemName}, Use [G]'
+      objectReference: {fileID: 0}
     - target: {fileID: 819563010278326442, guid: 529afb140c4e35d4c96891ce78cd5356, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.722
@@ -3315,6 +3336,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: 31c33a7df37eeaa4fa9b161b16a63b16, type: 2}
+    - target: {fileID: 364344862641211839, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 2751388007298822959, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.006869738
@@ -3591,6 +3616,10 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
       objectReference: {fileID: 0}
     - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: m_Size.x
@@ -4059,6 +4088,10 @@ PrefabInstance:
       propertyPath: itemPickupSoundClip
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: m_Size.y
       value: 118.775116
@@ -4197,6 +4230,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: b20d48670261a284aa3810faaf705e49, type: 2}
+    - target: {fileID: 364344862641211839, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 2751388007298822959, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.006869738
@@ -4573,6 +4610,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1113083280}
     m_Modifications:
+    - target: {fileID: 364344862641211839, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory, {itemName}, maybe i can charge my phone here
+      objectReference: {fileID: 0}
     - target: {fileID: 2751388007298822959, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.661
@@ -4757,6 +4798,10 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
       objectReference: {fileID: 0}
     - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: m_Size.y
@@ -5303,6 +5348,10 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
       objectReference: {fileID: 0}
     - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: m_Size.x
@@ -32109,6 +32158,7 @@ MonoBehaviour:
         m_CallState: 2
   itemData: {fileID: 0}
   itemPickupSoundClip: {fileID: 0}
+  pickupFeedbackMessage: 'Dodano do ekwipunku: {itemName}'
   noteData: {fileID: 0}
   notePickupSoundClip: {fileID: 0}
 --- !u!1001 &1828297749
@@ -32185,6 +32235,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: d4671d8c86f7fc34689e20f5180a3794, type: 2}
+    - target: {fileID: 364344862641211839, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 2751388007298822959, guid: 452c748915428294fb036f9032c9bcb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.006869738
@@ -32356,6 +32410,10 @@ PrefabInstance:
     - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: itemPickupSoundClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
       objectReference: {fileID: 0}
     - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: m_Size.x
@@ -33275,6 +33333,10 @@ PrefabInstance:
       propertyPath: itemPickupSoundClip
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5723497134533866933, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: Added to inventory {itemName}
+      objectReference: {fileID: 0}
     - target: {fileID: 7329495109115057326, guid: 0de4b522cc25a1140a14bb56bab1b21a, type: 3}
       propertyPath: m_Size.y
       value: 49.8295
@@ -33770,6 +33832,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1113083280}
     m_Modifications:
     - target: {fileID: 296671279178443820, guid: d0eea947f75885a44bec32b6ff24ce77, type: 3}
+      propertyPath: pickupFeedbackMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 296671279178443820, guid: d0eea947f75885a44bec32b6ff24ce77, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1394859492}
@@ -33999,6 +34065,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Systems_Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 6429889807612858871, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
+      propertyPath: feedbackText
+      value: 
+      objectReference: {fileID: 21286822}
     - target: {fileID: 7335308306129412410, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
       propertyPath: pauseMenuUI
       value: 
@@ -34043,10 +34113,6 @@ PrefabInstance:
       propertyPath: emptyInventoryText
       value: 
       objectReference: {fileID: 1366126177}
-    - target: {fileID: 8269255374701358792, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
-      propertyPath: phoneSystemManager
-      value: 
-      objectReference: {fileID: 18659055}
     - target: {fileID: 8269255374701358792, guid: 97a1cc8cd45ab7e4388c6ce1639e99b8, type: 3}
       propertyPath: currentItemNameText
       value: 

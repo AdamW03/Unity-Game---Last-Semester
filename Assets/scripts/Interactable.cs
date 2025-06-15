@@ -18,6 +18,10 @@ public class Interactable : MonoBehaviour
     [Tooltip("DŸwiêk odtwarzany przy podniesieniu tego przedmiotu.")]
     [SerializeField] private AudioClip itemPickupSoundClip; // <-- NOWE POLE NA DWIÊK PODNIESIENIA PRZEDMIOTU
 
+    [Tooltip("Komunikat, który wyœwietli siê po podniesieniu tego przedmiotu.")]
+    [TextArea] // To sprawi, ¿e pole w Inspektorze bêdzie wiêksze
+    public string pickupFeedbackMessage = "Added to inventory {itemName}";
+
     [Header("Dane Notatki (jeœli to notatka)")]
     [Tooltip("Dane notatki do dodania do notatnika (pozostaw puste, jeœli to nie notatka).")]
     public NoteData noteData;
@@ -33,23 +37,37 @@ public class Interactable : MonoBehaviour
 
     public void PickupItemAndDestroy()
     {
+        // SprawdŸ, czy przedmiot ma przypisane dane (ItemData)
         if (itemData != null)
         {
-            // Odtwórz dŸwiêk podniesienia przedmiotu, jeœli jest przypisany
+            // 1. Odtwórz dŸwiêk podniesienia przedmiotu (twoja istniej¹ca logika)
             if (SoundFXManager.Instance != null && itemPickupSoundClip != null)
             {
-                SoundFXManager.Instance.PlaySoundFXClip(itemPickupSoundClip, transform, 1f); // U¿ywamy transformu tego obiektu i domyœlnej g³oœnoœci 1f
+                SoundFXManager.Instance.PlaySoundFXClip(itemPickupSoundClip, transform, 1f);
             }
             else if (itemPickupSoundClip == null)
             {
-                Debug.LogWarning($"Brak przypisanego dŸwiêku podniesienia (itemPickupSoundClip) dla {gameObject.name}, ale przedmiot zostanie podniesiony.");
+                // To nie jest b³¹d, po prostu nie ma dŸwiêku, wiêc nie logujemy nic, by nie zaœmiecaæ konsoli
             }
             else if (SoundFXManager.Instance == null)
             {
                 Debug.LogWarning("SoundFXManager.Instance nie znaleziony. Nie mo¿na odtworzyæ dŸwiêku podniesienia.");
             }
 
+            // 2. Dodaj przedmiot do ekwipunku
             CarouselInventory.Instance?.AddItem(itemData);
+
+            // 3. Wyœwietl komunikat zwrotny dla gracza
+            if (FeedbackMessageManager.Instance != null && !string.IsNullOrEmpty(pickupFeedbackMessage))
+            {
+                // Przygotuj wiadomoœæ, zamieniaj¹c "{itemName}" na prawdziw¹ nazwê przedmiotu
+                string formattedMessage = pickupFeedbackMessage.Replace("{itemName}", itemData.itemName);
+
+                // Wywo³aj mened¿era, aby pokaza³ komunikat
+                FeedbackMessageManager.Instance.ShowMessage(formattedMessage);
+            }
+
+            // 4. Zniszcz obiekt przedmiotu ze sceny
             Destroy(gameObject);
         }
         else
