@@ -1436,6 +1436,8 @@ GameObject:
   - component: {fileID: 433847446581827212}
   - component: {fileID: 944915595071421099}
   - component: {fileID: 2194136978096757376}
+  - component: {fileID: 3853658173310380510}
+  - component: {fileID: 4757264252870003974}
   m_Layer: 0
   m_Name: TvMan
   m_TagString: Enemy
@@ -1452,7 +1454,7 @@ Transform:
   m_GameObject: {fileID: 4928080957460888256}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -129.3, y: 11.358, z: -30.41077}
+  m_LocalPosition: {x: -129.3, y: 11.451, z: -30.41077}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1499,7 +1501,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1576,6 +1578,50 @@ MonoBehaviour:
   stuckTimeThreshold: 5
   stuckSpeedThreshold: 0.1
   stuckCheckInterval: 1
+--- !u!136 &3853658173310380510
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928080957460888256}
+  m_Material: {fileID: 13400000, guid: fe8093e2bcd979f4cb625c26eb31e9bc, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.35
+  m_Height: 2.676613
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8383064, z: 0}
+--- !u!135 &4757264252870003974
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928080957460888256}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5101180542110904036
 GameObject:
   m_ObjectHideFlags: 0

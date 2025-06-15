@@ -53,6 +53,10 @@ public class CarouselInventory : MonoBehaviour
     [SerializeField] private Color centerItemColor = Color.white;
     [SerializeField] private Sprite defaultIcon;
 
+    [Header("Item Activation")]
+    public PhoneSystem phoneSystemManager; 
+    public InventoryItem phoneItemData;   
+
     private bool isInventoryOpen = false;
 
     void Start()
@@ -133,8 +137,17 @@ public class CarouselInventory : MonoBehaviour
             Debug.LogWarning("Próbowano dodaæ null jako przedmiot do ekwipunku.");
             return;
         }
-        Debug.Log($"Added to inventory: {itemToAdd.itemName}");
+
         items.Add(itemToAdd);
+        Debug.Log($"Dodano do ekwipunku: {itemToAdd.itemName}");
+
+        // --- NOWA LOGIKA AKTYWACJI ---
+        if (itemToAdd == phoneItemData && phoneSystemManager != null)
+        {
+            phoneSystemManager.NotifyPhonePickedUp();
+        }
+        // --------------------------------
+
         if (items.Count == 1)
         {
             currentItemIndex = 0;

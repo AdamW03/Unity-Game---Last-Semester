@@ -3,6 +3,9 @@ using UnityEngine.Events;
 
 public class PhoneSystem : MonoBehaviour
 {
+    public UnityEvent onPhoneSelected;
+    public UnityEvent onPhoneDeselected;
+
     [Header("Referencje")]
     public GameObject phoneLightObject;
     [Header("Item Data")]
@@ -34,6 +37,7 @@ public class PhoneSystem : MonoBehaviour
     public class BatteryChangeEvent : UnityEvent<float, float> { }
     public BatteryChangeEvent onBatteryChanged;
 
+    private bool playerHasPhone = false;
     void Awake()
     {
         if (phoneLightObject == null)
@@ -69,6 +73,11 @@ public class PhoneSystem : MonoBehaviour
 
     void Update()
     {
+        if (!playerHasPhone)
+        {
+            return; 
+        }
+
         bool currentlySelected = false;
         if (CarouselInventory.Instance != null)
         {
@@ -82,14 +91,19 @@ public class PhoneSystem : MonoBehaviour
         if (currentlySelected != isSelected)
         {
             isSelected = currentlySelected;
-            if (!isSelected && isLightOn)
+            if (isSelected)
             {
-                TurnLightOff(); // DŸwiêk zostanie odtworzony wewn¹trz tej metody
+                // Ta czêœæ wykona siê, gdy gracz WYBIERZE telefon
+                onPhoneSelected?.Invoke(); // Poka¿ UI
             }
-            else if (isSelected)
+            else
             {
-                string myName = this.phoneItemData?.itemName ?? "NIEZNANE DANE";
-                Debug.Log($"Telefon '{gameObject.name}' ({myName}) zosta³ ZAZNACZONY.");
+                // Ta czêœæ wykona siê, gdy gracz ODZNACZY telefon (wybierze inny przedmiot)
+                onPhoneDeselected?.Invoke(); // Ukryj UI
+                if (isLightOn)
+                {
+                    TurnLightOff(); // Jeœli latarka by³a w³¹czona, wy³¹cz j¹
+                }
             }
         }
 
@@ -212,6 +226,12 @@ public class PhoneSystem : MonoBehaviour
         {
             TurnLightOff();
         }
+    }
+
+    public void NotifyPhonePickedUp()
+    {
+        playerHasPhone = true;
+        Debug.Log("PhoneSystem zosta³ poinformowany, ¿e gracz podniós³ telefon. System jest teraz aktywny.");
     }
 
     public float GetCurrentBattery() => currentBattery;
