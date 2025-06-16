@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04409aefae9d73241b9cdf59673ff866, type: 3}
+  m_Name: InternalCorespondence_3
+  m_EditorClassIdentifier: 
+  pageNumber: 11
+  noteTitle: 'Internal 3/4 '
+  noteContent: "[Email] Subject: Query regarding overload capability. From: Prof.
+    Aleksander Kowalski To: IT Department. Body: Greetings, I require information
+    regarding the possibility of remotely or locally overloading the university's
+    critical server system. This is purely a theoretical inquiry within the scope
+    of my 'Digital Self Project' \u2013 I must anticipate emergency scenarios. Reply:
+    RESPONSE FROM IT: We strongly advise against such actions. The risk of a cascading
+    failure of security systems and infrastructure is extremely high. The procedure
+    does not exist and cannot be initiated."

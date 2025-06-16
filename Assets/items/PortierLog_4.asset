@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PortierLog_4
   m_EditorClassIdentifier: 
   pageNumber: 4
-  noteTitle: 4/4 Note about the Elevator
+  noteTitle: Portier Log 4/4 Note about the Elevator
   noteContent: Someone tried to force open the elevator. I called maintenance, but
     they said it's a serious failure, the cables are probably snapped. The elevator
     is out of service for the next few days. Gotta put up a sign. Too bad, would've
