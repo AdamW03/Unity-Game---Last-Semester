@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Key_SK4
   m_EditorClassIdentifier: 
   itemName: Key to Computer Lab 4
-  icon: {fileID: 21300000, guid: 58749f161a9d2904a9793a69f9835492, type: 3}
+  icon: {fileID: 21300000, guid: 8c703f5eccf55224694925497bddd10a, type: 3}

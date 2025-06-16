@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Key_TRA
   m_EditorClassIdentifier: 
   itemName: Key to Technicians Room A
-  icon: {fileID: 21300000, guid: dab3a9a5cbd0efa4d8aed78da5bcbeca, type: 3}
+  icon: {fileID: 21300000, guid: 94e3c78027f674741b034ea9d324af77, type: 3}
