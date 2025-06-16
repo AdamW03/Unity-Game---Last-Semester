@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Key_LCR BD
   m_EditorClassIdentifier: 
   itemName: Key to Large Computer Room (back door)
-  icon: {fileID: 21300000, guid: 8c703f5eccf55224694925497bddd10a, type: 3}
+  icon: {fileID: 21300000, guid: 94e3c78027f674741b034ea9d324af77, type: 3}

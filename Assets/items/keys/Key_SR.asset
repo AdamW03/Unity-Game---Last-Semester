@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Key_SR
   m_EditorClassIdentifier: 
   itemName: Key to Server Room
-  icon: {fileID: 21300000, guid: d4f292a2ba83fa84f910c57aec68ecb0, type: 3}
+  icon: {fileID: 21300000, guid: 94e3c78027f674741b034ea9d324af77, type: 3}
