@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StudentsNotes_2
   m_EditorClassIdentifier: 
   pageNumber: 15
-  noteTitle: Flyer 2/4
+  noteTitle: 'Students Notes 2/4 Flyer '
   noteContent: "PROF. KOWALSKI AND HIS \"DIGITAL SELF\" \u2013 BREAKTHROUGH OR THREAT?!
     Heard about his experiment? Apparently, he wants to transfer human consciousness
     into a computer! Is that even safe? Is it ethical? Join the debate! Today 16:00"
