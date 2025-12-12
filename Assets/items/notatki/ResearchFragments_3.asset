@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04409aefae9d73241b9cdf59673ff866, type: 3}
+  m_Name: ResearchFragments_3
+  m_EditorClassIdentifier: 
+  pageNumber: 7
+  noteTitle: Research Fragments 3/4
+  noteContent: 'Fragments discussing the theoretical basis for the transfer and storage
+    of human consciousness in digital form. Underlined sentences include: "...possible
+    side effects: distortion of perception, personality instability, aggression...",
+    "...potential carriers: advanced neural networks, specifically configured visual
+    matrices (e.g., CRT)...", "...risk: fusion with the digital environment, loss
+    of control over the entity..."'

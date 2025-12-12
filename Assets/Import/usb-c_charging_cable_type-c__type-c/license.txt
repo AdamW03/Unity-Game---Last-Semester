@@ -1,0 +1,11 @@
+Model Information:
+* title:	usb-c_charging_cable_type-c__type-c
+* source:	https://sketchfab.com/3d-models/usb-c-charging-cable-type-c--type-c-9c934c2256db4dfcbadb0e83cdcb7dcb
+* author:	ap-school (https://sketchfab.com/ap-school)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "usb-c_charging_cable_type-c__type-c" (https://sketchfab.com/3d-models/usb-c-charging-cable-type-c--type-c-9c934c2256db4dfcbadb0e83cdcb7dcb) by ap-school (https://sketchfab.com/ap-school) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

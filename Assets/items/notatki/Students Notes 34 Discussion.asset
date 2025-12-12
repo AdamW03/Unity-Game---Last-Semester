@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04409aefae9d73241b9cdf59673ff866, type: 3}
+  m_Name: Students Notes 34 Discussion
+  m_EditorClassIdentifier: 
+  pageNumber: 17
+  noteTitle: Students Notes 3/4 Discussion
+  noteContent: At the last meeting, Kowalski blurted out that "CRT is a stable matrix
+    for unstable consciousness." It sounded smart, although no one asked what exactly
+    he meant. Maybe he meant that these old monitors tolerate chaos better than we
+    do?

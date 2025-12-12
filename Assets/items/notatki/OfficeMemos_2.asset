@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04409aefae9d73241b9cdf59673ff866, type: 3}
+  m_Name: OfficeMemos_2
+  m_EditorClassIdentifier: 
+  pageNumber: 20
+  noteTitle: 'Office Memos 2/4 Monitoring Incident:'
+  noteContent: 'Date: xxxxxx. Time: xxxxxx. Reporter: Security Staff. Incident Description:
+    During routine monitoring, an unknown figure was observed within the main hall.
+    The figure was... highly irregular, seemed to be composed of flickering visuals,
+    and had something resembling an old television screen in place of a head. It
+    was moving towards the main staircase. Camera signal in that area was lost. The
+    key to the emergency stairwell is located in Technicians'' Room B.'
