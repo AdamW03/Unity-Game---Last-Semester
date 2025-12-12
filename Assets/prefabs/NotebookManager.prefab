@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &315931601861688760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1848772227295576524}
+  - component: {fileID: 3578740584702112489}
+  m_Layer: 0
+  m_Name: NotebookManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1848772227295576524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315931601861688760}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.16642094, y: 0.899999, z: 0.027889252}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3578740584702112489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315931601861688760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15359b50d6edca1418a34971619528e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notebookPanel: {fileID: 0}
+  noteContentText: {fileID: 0}
+  pageNumberText: {fileID: 0}
+  feedbackMessageText: {fileID: 0}
+  messageDisplayTime: 2
+  toggleNotebookKey: 110
+  previousPageKey: 113
+  nextPageKey: 101
+  pageTurnSoundClip: {fileID: 8300000, guid: 560b84541e2980942a518e1c6a46a6c0, type: 3}
+  notebookOpenSoundClip: {fileID: 8300000, guid: 835ba55f99ab22543b98cb94f402fad4, type: 3}
+  notebookCloseSoundClip: {fileID: 8300000, guid: a0411f8d55853d54f93f6309ed0326c5, type: 3}
+  hasCollectedNotebookItem: 0
+  collectedNotes: []
